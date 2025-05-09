@@ -5,45 +5,22 @@ import Link from "next/link"
 import Image from "next/image"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
+import { heroSlides } from "@/config/home/heropage"
 
 export default function HeroSection() {
   const [currentSlide, setCurrentSlide] = useState(0)
 
-  const slides = [
-    {
-      title: "Create Unforgettable Events",
-      subtitle: "Professional Event Planning & Decoration Services",
-      image: "/placeholder.svg?height=1080&width=1920&text=Wedding+Decoration",
-      cta: "Get Started",
-      link: "/contact",
-    },
-    {
-      title: "Capture Every Moment",
-      subtitle: "Professional Photography & Videography",
-      image: "/placeholder.svg?height=1080&width=1920&text=Event+Photography",
-      cta: "View Gallery",
-      link: "/gallery",
-    },
-    {
-      title: "Celebrate in Style",
-      subtitle: "Customized Decoration for Every Occasion",
-      image: "/placeholder.svg?height=1080&width=1920&text=Birthday+Decoration",
-      cta: "Our Services",
-      link: "/services",
-    },
-  ]
-
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length)
+      setCurrentSlide((prev) => (prev + 1) % heroSlides.length)
     }, 5000)
 
     return () => clearInterval(interval)
-  }, [slides.length])
+  }, [])
 
   return (
     <section className="relative h-screen">
-      {slides.map((slide, index) => (
+      {heroSlides.map((slide, index) => (
         <div
           key={index}
           className={`absolute inset-0 transition-opacity duration-1000 ${
@@ -70,7 +47,7 @@ export default function HeroSection() {
             transition={{ duration: 0.5 }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4"
           >
-            {slides[currentSlide].title}
+            {heroSlides[currentSlide].title}
           </motion.h1>
 
           <motion.p
@@ -80,7 +57,7 @@ export default function HeroSection() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-xl md:text-2xl mb-8"
           >
-            {slides[currentSlide].subtitle}
+            {heroSlides[currentSlide].subtitle}
           </motion.p>
 
           <motion.div
@@ -90,7 +67,7 @@ export default function HeroSection() {
             transition={{ duration: 0.5, delay: 0.4 }}
           >
             <Button asChild size="lg" className="mr-4">
-              <Link href={slides[currentSlide].link}>{slides[currentSlide].cta}</Link>
+              <Link href={heroSlides[currentSlide].link}>{heroSlides[currentSlide].cta}</Link>
             </Button>
             <Button asChild size="lg" variant="outline">
               <Link href="/quote">Get a Quote</Link>
@@ -100,7 +77,7 @@ export default function HeroSection() {
       </div>
 
       <div className="absolute bottom-8 left-0 right-0 z-20 flex justify-center space-x-2">
-        {slides.map((_, index) => (
+        {heroSlides.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentSlide(index)}
