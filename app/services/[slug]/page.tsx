@@ -3,6 +3,7 @@ import Image from "next/image"
 import { getServiceBySlug } from "@/config/services"
 import Gallery from "@/components/services/gallery"
 import Details from "@/components/services/details"
+import { Suspense } from "react"
 
 interface ServicePageProps {
   params: {
@@ -10,8 +11,8 @@ interface ServicePageProps {
   }
 }
 
-export default function ServicePage({ params }: ServicePageProps) {
-  const service = getServiceBySlug(params.slug)
+export default async function ServicePage({ params }: ServicePageProps) {
+  const service = await getServiceBySlug(params.slug)
 
   if (!service) {
     notFound()
@@ -27,25 +28,31 @@ export default function ServicePage({ params }: ServicePageProps) {
             <p className="text-xl text-muted-foreground">{service.longDescription}</p>
           </div>
           <div className="relative h-[400px] rounded-lg overflow-hidden">
-            <Image
-              src={service.imageSrc}
-              alt={service.title}
-              fill
-              className="object-cover"
-            />
+            <Suspense fallback={<div className="w-full h-full bg-muted animate-pulse" />}>
+              <Image
+                src={service.imageSrc}
+                alt={service.title}
+                fill
+                className="object-cover"
+              />
+            </Suspense>
           </div>
         </div>
 
         {/* Features */}
         <section>
           <h2 className="text-3xl font-bold mb-8">What We Offer</h2>
-          <Details features={service.features} />
+          <Suspense fallback={<div className="h-48 bg-muted animate-pulse rounded-lg" />}>
+            <Details features={service.features} />
+          </Suspense>
         </section>
 
         {/* Gallery */}
         <section className="mt-16">
           <h2 className="text-3xl font-bold mb-8">Our Work</h2>
-          <Gallery images={service.gallery} title={service.title} />
+          <Suspense fallback={<div className="h-96 bg-muted animate-pulse rounded-lg" />}>
+            <Gallery images={service.gallery} title={service.title} />
+          </Suspense>
         </section>
       </div>
     </div>
