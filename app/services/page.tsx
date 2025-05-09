@@ -1,7 +1,7 @@
 "use client"
 import { motion } from "framer-motion"
 import ServiceCard from "@/components/home/services-sec/service-card"
-import { services } from "@/config/home/services"
+import { services } from "@/config/home/services/index"
 
 export default function ServicesPage() {
   return (

@@ -12,36 +12,38 @@ export interface ServiceDetail {
   }[]
 }
 
-export const services: ServiceDetail[] = [
-  {
-    slug: "wedding-decoration",
-    title: "Wedding Decoration",
-    description: "Transform your wedding venue into a magical space",
-    longDescription: "We create enchanting wedding environments with elegant floral arrangements, sophisticated lighting, and personalized thematic elements that reflect your unique love story.",
-    icon: "Flower",
-    imageSrc: "https://th.bing.com/th/id/OIP.d9vFv-YjOIbn6PMJWNDDRQHaLH?cb=iwp1&rs=1&pid=ImgDetMain",
-    gallery: [
-      "https://th.bing.com/th/id/OIP.d9vFv-YjOIbn6PMJWNDDRQHaLH?cb=iwp1&rs=1&pid=ImgDetMain",
-      "https://th.bing.com/th/id/OIP.d9vFv-YjOIbn6PMJWNDDRQHaLH?cb=iwp1&rs=1&pid=ImgDetMain",
-      "https://th.bing.com/th/id/OIP.d9vFv-YjOIbn6PMJWNDDRQHaLH?cb=iwp1&rs=1&pid=ImgDetMain",
-      "https://th.bing.com/th/id/OIP.d9vFv-YjOIbn6PMJWNDDRQHaLH?cb=iwp1&rs=1&pid=ImgDetMain"
-    ],
-    features: [
-      {
-        title: "Custom Themed Decor",
-        description: "Personalized decoration schemes that match your wedding style"
-      },
-      {
-        title: "Floral Arrangements",
-        description: "Fresh and artificial flower arrangements for all spaces"
-      },
-      {
-        title: "Lighting Design",
-        description: "Ambient lighting to create the perfect atmosphere"
-      }
-    ]
-  },
-  {
+export async function getServiceBySlug(slug: string): Promise<ServiceDetail | null> {
+  // Simulating database fetch with sample data
+  const services: ServiceDetail[] = [
+    {
+      slug: "wedding-decoration",
+      title: "Wedding Decoration",
+      description: "Transform your wedding venue into a magical space",
+      longDescription: "We create enchanting wedding environments with elegant floral arrangements, sophisticated lighting, and personalized thematic elements that reflect your unique love story.",
+      icon: "Heart",
+      imageSrc: "https://th.bing.com/th/id/OIP.Nh5FiUrpMglhkTKacvX-iwHaLH?rs=1&pid=ImgDetMain",
+      gallery: [
+        "https://th.bing.com/th/id/OIP.Nh5FiUrpMglhkTKacvX-iwHaLH?rs=1&pid=ImgDetMain",
+        "https://th.bing.com/th/id/OIP.Nh5FiUrpMglhkTKacvX-iwHaLH?rs=1&pid=ImgDetMain",
+        "https://th.bing.com/th/id/OIP.Nh5FiUrpMglhkTKacvX-iwHaLH?rs=1&pid=ImgDetMain",
+      ],
+      features: [
+        {
+          title: "Custom Themed Decor",
+          description: "Personalized decoration schemes that match your wedding style"
+        },
+        {
+          title: "Floral Arrangements",
+          description: "Fresh and artificial flower arrangements for all spaces"
+        },
+        {
+          title: "Lighting Design",
+          description: "Ambient lighting to create the perfect atmosphere"
+        }
+      ]
+    },
+    // Add more services here
+    {
     slug: "birthday-party",
     title: "Birthday Celebrations",
     description: "Celebrate birthdays with style and fun",
@@ -181,9 +183,10 @@ export const services: ServiceDetail[] = [
       }
     ]
   }
-];
+  ]
 
-
-export const getServiceBySlug = (slug: string) => {
-  return services.find(service => service.slug === slug)
+  // Simulate network delay
+  await new Promise(resolve => setTimeout(resolve, 500))
+  
+  return services.find(service => service.slug === slug) || null
 }
