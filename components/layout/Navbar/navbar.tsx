@@ -7,15 +7,8 @@ import { Button } from "@/components/ui/button"
 import { useTheme } from "next-themes"
 import { cn } from "@/lib/utils"
 import { useMobile } from "@/hooks/use-mobile"
+import { navLinks } from "@/config/layout"
 
-const navLinks = [
-  { name: "Home", href: "/" },
-  { name: "About", href: "/about" },
-  { name: "Services", href: "/services" },
-  { name: "Gallery", href: "/gallery" },
-  { name: "Packages", href: "/packages" },
-  { name: "Contact", href: "/contact" },
-]
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
