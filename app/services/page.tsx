@@ -26,6 +26,7 @@ export default function ServicesPage() {
               title={service.title}
               description={service.description}
               icon={<service.icon className="h-10 w-10" />}
+              href={service.href}
               imageSrc={service.imageSrc}
             />
           ))}
