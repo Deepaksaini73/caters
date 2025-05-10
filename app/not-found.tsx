@@ -1,24 +1,22 @@
 "use client"
 
-import Link from "next/link"
 import { Suspense } from "react"
-import { Button } from "@/components/ui/button"
 
 export default function NotFound() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <div className="min-h-[60vh] flex flex-col items-center justify-center">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">404</h1>
-          <h2 className="text-2xl md:text-3xl font-semibold mb-4">Page Not Found</h2>
-          <p className="text-muted-foreground mb-8">
-            Sorry, we couldn't find the page you're looking for.
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-4xl font-bold mb-4">404</h1>
+          <p className="text-xl text-muted-foreground mb-6">
+            Sorry, the page you're looking for cannot be found.
           </p>
-          <Button asChild>
-            <Link href="/">
-              Return Home
-            </Link>
-          </Button>
+          <a
+            href="/"
+            className="inline-block px-6 py-3 rounded-md bg-primary text-white"
+          >
+            Go Back Home
+          </a>
         </div>
       </div>
     </Suspense>
