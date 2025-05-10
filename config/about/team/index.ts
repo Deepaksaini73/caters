@@ -1,21 +1,21 @@
 export const teamMembers = [
   {
-    name: "Rajesh Kumar",
+    name: "Mahendar Kumar",
     role: "Founder & Creative Director",
-    image: "/placeholder.svg?height=400&width=400&text=Rajesh",
+    image: "https://res.cloudinary.com/dpt4bhayi/image/upload/v1746867614/Screenshot_2025-05-10_143033_t43vre.png",
   },
   {
-    name: "Priya Sharma",
+    name: "Goutam Saini",
     role: "Event Manager",
-    image: "/placeholder.svg?height=400&width=400&text=Priya",
+    image: "https://res.cloudinary.com/dpt4bhayi/image/upload/v1746867695/470971758_1331276297875625_9178403658689331946_n_as7pq5.jpg",
   },
   {
-    name: "Vikram Singh",
+    name: "Akshay Saini",
     role: "Lead Photographer",
     image: "/placeholder.svg?height=400&width=400&text=Vikram",
   },
   {
-    name: "Ananya Patel",
+    name: "Deepak",
     role: "Decoration Specialist",
     image: "/placeholder.svg?height=400&width=400&text=Ananya",
   },

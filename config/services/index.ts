@@ -21,11 +21,11 @@ export async function getServiceBySlug(slug: string): Promise<ServiceDetail | nu
       description: "Transform your wedding venue into a magical space",
       longDescription: "We create enchanting wedding environments with elegant floral arrangements, sophisticated lighting, and personalized thematic elements that reflect your unique love story.",
       icon: "Heart",
-      imageSrc: "https://th.bing.com/th/id/OIP.Nh5FiUrpMglhkTKacvX-iwHaLH?rs=1&pid=ImgDetMain",
+      imageSrc: "https://res.cloudinary.com/dpt4bhayi/image/upload/v1746868099/photo-1689699790566-34411f85dd72_ih4wyn.jpg",
       gallery: [
-        "https://th.bing.com/th/id/OIP.Nh5FiUrpMglhkTKacvX-iwHaLH?rs=1&pid=ImgDetMain",
-        "https://th.bing.com/th/id/OIP.Nh5FiUrpMglhkTKacvX-iwHaLH?rs=1&pid=ImgDetMain",
-        "https://th.bing.com/th/id/OIP.Nh5FiUrpMglhkTKacvX-iwHaLH?rs=1&pid=ImgDetMain",
+        "https://res.cloudinary.com/dpt4bhayi/image/upload/v1746868099/photo-1689699790566-34411f85dd72_ih4wyn.jpg",
+        "https://res.cloudinary.com/dpt4bhayi/image/upload/v1746868185/photo-1683422074015-aafc41ef1b36_sfxqxl.jpg",
+        "https://res.cloudinary.com/dpt4bhayi/image/upload/v1746868295/468690978_594200526471916_230415010275403789_n_-_Copy_cohqfa.jpg",
       ],
       features: [
         {
@@ -49,12 +49,11 @@ export async function getServiceBySlug(slug: string): Promise<ServiceDetail | nu
     description: "Celebrate birthdays with style and fun",
     longDescription: "From kid-friendly cartoon themes to elegant adult parties, we offer full-service birthday planning with decorations, activities, and entertainment tailored to your needs.",
     icon: "Cake",
-    imageSrc: "https://th.bing.com/th/id/OIP.Nh5FiUrpMglhkTKacvX-iwHaLH?rs=1&pid=ImgDetMain",
+    imageSrc: "https://res.cloudinary.com/dpt4bhayi/image/upload/v1746868120/img_20241119_153522_981-m2W8rxvovNUyKy9O_ctqhtp.jpg",
     gallery: [
-      "https://th.bing.com/th/id/OIP.Nh5FiUrpMglhkTKacvX-iwHaLH?rs=1&pid=ImgDetMain",
-      "https://th.bing.com/th/id/OIP.Hgh3WY_iIEl1XSe0rhvfNgHaE8?rs=1&pid=ImgDetMain",
-      "https://th.bing.com/th/id/OIP.yRUErdOgYxv6nPPWEH6RUgHaE8?rs=1&pid=ImgDetMain",
-      "https://th.bing.com/th/id/OIP.3_czNElUsaGH8nKpJHTnKQHaE8?rs=1&pid=ImgDetMain"
+      "https://res.cloudinary.com/dpt4bhayi/image/upload/v1746868120/img_20241119_153522_981-m2W8rxvovNUyKy9O_ctqhtp.jpg",
+      "https://res.cloudinary.com/dpt4bhayi/image/upload/v1746868174/images-25-YNqBNaxZJoIQQx1B_xwgugi.jpg",
+      "https://th.bing.com/th/id/OIP.ANRKP8Ulq-EpUKSJ3RzSdwHaFj?cb=iwp1&rs=1&pid=ImgDetMain"
     ],
     features: [
       {
@@ -77,7 +76,7 @@ export async function getServiceBySlug(slug: string): Promise<ServiceDetail | nu
     description: "Capture moments that last a lifetime",
     longDescription: "Our team of skilled photographers and videographers use the latest equipment and creative direction to document your special occasions in stunning detail.",
     icon: "Camera",
-    imageSrc: "https://th.bing.com/th/id/OIP.2RH7N4DWrVmMMeTzVaP61gHaE7?rs=1&pid=ImgDetMain",
+    imageSrc: "https://res.cloudinary.com/dpt4bhayi/image/upload/v1746869621/OIP_hwsei2.jpg",
     gallery: [
       "https://th.bing.com/th/id/OIP.2RH7N4DWrVmMMeTzVaP61gHaE7?rs=1&pid=ImgDetMain",
       "https://th.bing.com/th/id/OIP.yzRUEbh5vpvob3LjQTxzMwHaEK?rs=1&pid=ImgDetMain",
@@ -105,7 +104,7 @@ export async function getServiceBySlug(slug: string): Promise<ServiceDetail | nu
     description: "Keep the party alive with great music",
     longDescription: "We offer live bands, professional DJs, and performers to set the mood and keep your guests entertained at weddings, parties, or corporate events.",
     icon: "MusicNote",
-    imageSrc: "https://th.bing.com/th/id/OIP.YXYB_GqMKAA1MCUP_Yzt1QHaE8?rs=1&pid=ImgDetMain",
+    imageSrc: "https://res.cloudinary.com/dpt4bhayi/image/upload/v1746869703/OIP_yqds6e.jpg",
     gallery: [
       "https://th.bing.com/th/id/OIP.YXYB_GqMKAA1MCUP_Yzt1QHaE8?rs=1&pid=ImgDetMain",
       "https://th.bing.com/th/id/OIP.vWvP7qG7lDUeVaPuAA-lZQHaLH?rs=1&pid=ImgDetMain",
@@ -133,7 +132,7 @@ export async function getServiceBySlug(slug: string): Promise<ServiceDetail | nu
     description: "Delicious food for every occasion",
     longDescription: "Our catering team crafts custom menus for every event, from traditional buffets to gourmet fine dining, ensuring delicious options for every guest.",
     icon: "Utensils",
-    imageSrc: "https://th.bing.com/th/id/OIP.nGdZ-rCFiINShT6Zd6cwLwHaE8?rs=1&pid=ImgDetMain",
+    imageSrc: "https://res.cloudinary.com/dpt4bhayi/image/upload/v1746869751/catering-food-wedding-event-table-84491977_e78fxg.jpg",
     gallery: [
       "https://th.bing.com/th/id/OIP.nGdZ-rCFiINShT6Zd6cwLwHaE8?rs=1&pid=ImgDetMain",
       "https://th.bing.com/th/id/OIP.VqDLCLf66VvHEM0mDa_UkwHaE7?rs=1&pid=ImgDetMain",
@@ -161,7 +160,7 @@ export async function getServiceBySlug(slug: string): Promise<ServiceDetail | nu
     description: "Professional event solutions for businesses",
     longDescription: "From conferences to team-building retreats, we provide streamlined planning and execution with modern setups, engaging sessions, and full hospitality services.",
     icon: "Briefcase",
-    imageSrc: "https://th.bing.com/th/id/OIP.0_6T9gX4FsRh2OBpFg6glgHaFj?rs=1&pid=ImgDetMain",
+    imageSrc: "https://res.cloudinary.com/dpt4bhayi/image/upload/v1746869829/OIP_kkqudp.jpg",
     gallery: [
       "https://th.bing.com/th/id/OIP.0_6T9gX4FsRh2OBpFg6glgHaFj?rs=1&pid=ImgDetMain",
       "https://th.bing.com/th/id/OIP.rZTGEByvDTzBygVqY_0f9gHaE8?rs=1&pid=ImgDetMain",

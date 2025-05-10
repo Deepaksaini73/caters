@@ -35,7 +35,7 @@ export interface ContactInfoType {
 
 export const socialLinks: SocialLinkType[] = [
   { icon: Facebook, href: "https://facebook.com", label: "Facebook" },
-  { icon: Instagram, href: "https://instagram.com", label: "Instagram" },
+  { icon: Instagram, href: "https://www.instagram.com/mahakal_decoration_and_events/", label: "Instagram" },
   { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
 ]
 
@@ -59,12 +59,11 @@ export const serviceLinks: FooterLinkType[] = [
 export const contactInfo: ContactInfoType[] = [
   {
     icon: MapPin,
-    text: "123 Event Street, Decoration City, 12345",
+    text: "nawalgram, jhunjhunu , rajshthan, India",
   },
   {
     icon: Phone,
     text: "+91 7374864316",
-    href: "tel:+1234567890"
   },
   {
     icon: Mail,

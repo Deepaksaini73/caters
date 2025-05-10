@@ -8,13 +8,25 @@ import CTASection from "@/components/home/cta-sec/cta-section"
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen">
-      <HeroSection />
-      <AboutSection />
-      <ServicesSection />
-      <GallerySection />
-      <TestimonialsSection />
-      <CTASection />
+    <div className="flex flex-col min-h-screen bg-background">
+      <div className="hero-gradient">
+        <HeroSection />
+      </div>
+      <div className="gradient-secondary section-spacing">
+        <AboutSection />
+      </div>
+      <div className="gradient-overlay section-spacing">
+        <ServicesSection />
+      </div>
+      <div className="bg-accent/5 section-spacing">
+        <GallerySection />
+      </div>
+      <div className="gradient-secondary section-spacing">
+        <TestimonialsSection />
+      </div>
+      <div className="gradient-secondary section-spacing">
+        <CTASection />
+      </div>
     </div>
   )
 }
