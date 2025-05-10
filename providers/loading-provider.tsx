@@ -15,22 +15,32 @@ const LoadingContext = createContext({
 export function LoadingProvider({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(false)
   const pathname = usePathname()
-  const searchParams = useSearchParams()
 
-  useEffect(() => {
-    setIsLoading(true)
-    const timeout = setTimeout(() => setIsLoading(false), 500)
-    return () => clearTimeout(timeout)
-  }, [pathname, searchParams])
-
+  // Suspense boundaries should wrap around the hooks that depend on client-side data fetching
   return (
     <LoadingContext.Provider value={{ isLoading, setIsLoading }}>
-      {/* Wrap children with Suspense for loading state */}
       <Suspense fallback={<LoadingSpinner />}>
+        {/* The SearchParams should be accessed inside the Suspense boundary */}
+        <SearchWithSearchParams />
         {children}
       </Suspense>
     </LoadingContext.Provider>
   )
+}
+
+// A wrapper to use useSearchParams within Suspense boundary
+function SearchWithSearchParams() {
+  const searchParams = useSearchParams()
+  const {isLoading, setIsLoading} = useLoading()
+  
+  useEffect(() => {
+    // Trigger loading state based on search params or pathname
+    setIsLoading(true)
+    const timeout = setTimeout(() => setIsLoading(false), 500)
+    return () => clearTimeout(timeout)
+  }, [searchParams])
+
+  return <input placeholder="Search..." />
 }
 
 // Custom hook to use loading context
