@@ -21,24 +21,46 @@ export default function ServiceCard({ title, description, icon, href, imageSrc }
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+      whileHover={{ 
+        y: -12,
+        scale: 1.02,
+        transition: { duration: 0.2, ease: "easeOut" }
+      }}
       viewport={{ once: true }}
+      className="relative z-0 hover:z-10"
     >
-      <Card className="overflow-hidden h-full flex flex-col">
-        <div className="relative h-48">
-          <Image src={imageSrc || "/placeholder.svg"} alt={title} fill className="object-cover" />
-        </div>
+      <Card className="overflow-hidden h-full flex flex-col transition-shadow duration-200 hover:shadow-xl">
+        <motion.div 
+          className="relative h-48"
+          whileHover={{ scale: 1.05 }}
+          transition={{ duration: 0.2 }}
+        >
+          <Image 
+            src={imageSrc || "/placeholder.svg"} 
+            alt={title} 
+            fill 
+            className="object-cover transition-transform duration-200" 
+          />
+        </motion.div>
         <CardHeader>
-          <div className="flex items-center gap-2">
+          <motion.div 
+            className="flex items-center gap-2"
+            whileHover={{ x: 5 }}
+            transition={{ duration: 0.2 }}
+          >
             <div className="text-primary">{icon}</div>
             <CardTitle>{title}</CardTitle>
-          </div>
+          </motion.div>
         </CardHeader>
         <CardContent className="flex-grow">
           <CardDescription className="text-base">{description}</CardDescription>
         </CardContent>
         <CardFooter>
-          <Button asChild variant="ghost" className="w-full justify-between">
+          <Button 
+            asChild 
+            variant="ghost" 
+            className="w-full justify-between hover:bg-primary/5"
+          >
             <Link href={href}>
               Learn More <ArrowRight className="h-4 w-4 ml-2" />
             </Link>

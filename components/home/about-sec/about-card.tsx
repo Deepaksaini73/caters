@@ -15,13 +15,24 @@ export default function AboutCard({ icon: Icon, title, description, delay }: Abo
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
+      whileHover={{ 
+        y: -8,
+        scale: 1.02,
+        transition: { duration: 0.2, ease: "easeOut" }
+      }}
       transition={{ duration: 0.5, delay }}
       viewport={{ once: true }}
+      className="relative z-0 hover:z-10"
     >
-      <Card className="h-full">
+      <Card className="h-full transition-all duration-200 hover:shadow-lg hover:bg-accent/5">
         <CardHeader className="text-center">
-          <Icon className="w-12 h-12 mx-auto text-primary mb-4" />
-          <CardTitle>{title}</CardTitle>
+          <motion.div
+            whileHover={{ rotate: [0, -10, 10, 0], scale: 1.1 }}
+            transition={{ duration: 0.3 }}
+          >
+            <Icon className="w-12 h-12 mx-auto text-primary mb-4" />
+          </motion.div>
+          <CardTitle className="transition-colors duration-200">{title}</CardTitle>
         </CardHeader>
         <CardContent>
           <p className="text-center text-muted-foreground">

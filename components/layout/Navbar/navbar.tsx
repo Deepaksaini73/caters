@@ -2,13 +2,13 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { Menu, X, Moon, Sun } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useTheme } from "next-themes"
 import { cn } from "@/lib/utils"
 import { useMobile } from "@/hooks/use-mobile"
 import { navLinks } from "@/config/layout"
-
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -38,8 +38,34 @@ export default function Navbar() {
     >
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          <Link href="/" className="text-2xl font-bold text-primary">
-            Mahakal Caters
+          <Link 
+            href="/" 
+            className="flex items-center space-x-3 group"
+          >
+            <div className={cn(
+              "relative w-12 h-12 rounded-full overflow-hidden",
+              "transition-transform duration-300 ease-in-out",
+              "group-hover:scale-110",
+              isScrolled ? "shadow-md" : ""
+            )}>
+              <Image
+                src="/logo.png"
+                alt="Mahakal Caters Logo"
+                fill
+                className="object-contain p-1"
+                sizes="(max-width: 768px) 40px, 48px"
+                priority
+                quality={100}
+              />
+            </div>
+            <span className={cn(
+              "text-2xl font-bold",
+              "transition-colors duration-300",
+              isScrolled ? "text-primary" : "text-primary",
+              "group-hover:text-primary/90"
+            )}>
+              Mahakal Caters
+            </span>
           </Link>
 
           {/* Desktop Navigation */}

@@ -24,7 +24,7 @@ export default function OurStory() {
           </div>
           <div className="relative h-[400px] lg:h-[500px] rounded-lg overflow-hidden">
             <Image
-              src="/placeholder.svg?height=1000&width=800&text=Our+Team"
+              src="https://res.cloudinary.com/dpt4bhayi/image/upload/v1746867823/468807740_816097507232942_1482742955630624124_n.jpg_voiwhk.jpg"
               alt="Mahakal Caters Team"
               fill
               className="object-cover"
