@@ -1,9 +1,9 @@
-import { notFound } from "next/navigation";
 import Image from "next/image";
 import { Suspense } from "react";
 import { getServiceBySlug } from "@/config/services";
 import Gallery from "@/components/services/gallery";
 import Details from "@/components/services/details";
+import { redirect } from "next/navigation";
 
 interface ServicePageProps {
   params: Promise<{
@@ -17,7 +17,7 @@ export default async function ServicePage(props: ServicePageProps) {
     const service = await getServiceBySlug(params.slug);
 
     if (!service) {
-      return notFound();
+      redirect('/'); // Redirect to home page instead of showing 404
     }
 
     return (
@@ -59,6 +59,6 @@ export default async function ServicePage(props: ServicePageProps) {
       </Suspense>
     );
   } catch (error) {
-    return notFound();
+    redirect('/'); // Redirect to home page on error
   }
 }
