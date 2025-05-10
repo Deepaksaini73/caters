@@ -1,8 +1,9 @@
 "use client"
 import { createContext, useContext, useState } from "react"
-import { usePathname, useSearchParams } from "next/navigation"
+import { usePathname } from "next/navigation"
 import { useEffect } from "react"
 import LoadingSpinner from "@/components/ui/loading-spinner"
+import { Suspense } from "react"
 
 const LoadingContext = createContext({
   isLoading: false,
@@ -12,18 +13,20 @@ const LoadingContext = createContext({
 export function LoadingProvider({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(false)
   const pathname = usePathname()
-  const searchParams = useSearchParams()
 
   useEffect(() => {
+    // Show loading on route changes
     setIsLoading(true)
     const timeout = setTimeout(() => setIsLoading(false), 500)
     return () => clearTimeout(timeout)
-  }, [pathname, searchParams])
+  }, [pathname])
 
   return (
     <LoadingContext.Provider value={{ isLoading, setIsLoading }}>
+      <Suspense fallback={<LoadingSpinner />}>
+        {children}
+      </Suspense>
       {isLoading && <LoadingSpinner />}
-      {children}
     </LoadingContext.Provider>
   )
 }
