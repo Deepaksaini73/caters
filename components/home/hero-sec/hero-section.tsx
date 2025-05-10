@@ -65,11 +65,23 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
+            className="space-x-4"
           >
-            <Button asChild size="lg" className="mr-4">
-              <Link href={heroSlides[currentSlide].link}>{heroSlides[currentSlide].cta}</Link>
+            <Button 
+              asChild 
+              size="lg" 
+              className="bg-primary text-primary-foreground hover:bg-primary/90 transition-colors duration-200"
+            >
+              <Link href={heroSlides[currentSlide].link}>
+                {heroSlides[currentSlide].cta}
+              </Link>
             </Button>
-            <Button asChild size="lg" variant="outline">
+            <Button 
+              asChild 
+              size="lg" 
+              variant="outline" 
+              className="border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-200"
+            >
               <Link href="/quote">Get a Quote</Link>
             </Button>
           </motion.div>

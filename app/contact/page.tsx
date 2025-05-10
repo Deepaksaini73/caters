@@ -4,6 +4,7 @@ import type React from "react"
 
 import { useState } from "react"
 import { motion } from "framer-motion"
+import emailjs from '@emailjs/browser'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -22,6 +23,7 @@ export default function ContactPage() {
 
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [error, setError] = useState("")
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -31,24 +33,42 @@ export default function ContactPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
+    setError("")
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500))
+    try {
+      const templateParams = {
+        to_name: "Your Name",
+        from_name: formState.name,
+        from_email: formState.email,
+        phone: formState.phone,
+        subject: formState.subject,
+        message: formState.message,
+      }
 
-    setIsSubmitting(false)
-    setIsSubmitted(true)
-    setFormState({
-      name: "",
-      email: "",
-      phone: "",
-      subject: "",
-      message: "",
-    })
+      await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+        templateParams,
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
+      )
 
-    // Reset success message after 5 seconds
-    setTimeout(() => {
-      setIsSubmitted(false)
-    }, 5000)
+      setIsSubmitted(true)
+      setFormState({
+        name: "",
+        email: "",
+        phone: "",
+        subject: "",
+        message: "",
+      })
+
+      setTimeout(() => {
+        setIsSubmitted(false)
+      }, 5000)
+    } catch (err) {
+      setError("Failed to send message. Please try again.")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -252,21 +272,29 @@ export default function ContactPage() {
                       />
                     </div>
 
-                    <Button type="submit" className="w-full" disabled={isSubmitting}>
-                      {isSubmitting ? (
-                        <>Sending Message...</>
-                      ) : (
-                        <>
-                          <Send className="mr-2 h-4 w-4" /> Send Message
-                        </>
-                      )}
-                    </Button>
+                    <div className="space-y-4">
+                      <Button type="submit" className="w-full" disabled={isSubmitting}>
+                        {isSubmitting ? (
+                          <>Sending Message...</>
+                        ) : (
+                          <>
+                            <Send className="mr-2 h-4 w-4" /> Send Message
+                          </>
+                        )}
+                      </Button>
 
-                    {isSubmitted && (
-                      <div className="bg-green-100 text-green-800 p-4 rounded-md">
-                        Thank you for your message! We'll get back to you soon.
-                      </div>
-                    )}
+                      {error && (
+                        <div className="bg-red-100 text-red-800 p-4 rounded-md">
+                          {error}
+                        </div>
+                      )}
+
+                      {isSubmitted && (
+                        <div className="bg-green-100 text-green-800 p-4 rounded-md">
+                          Thank you for your message! We'll get back to you soon.
+                        </div>
+                      )}
+                    </div>
                   </form>
                 </CardContent>
               </Card>
