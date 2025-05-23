@@ -11,6 +11,7 @@ export async function POST(req: NextRequest) {
     const role = formData.get('role') as string
     const review = formData.get('review') as string
     const rating = Number(formData.get('rating'))
+    const image_url = formData.get('image') as string
 
     // Validate required fields
     if (!name || !role || !review || !rating) {
@@ -37,6 +38,7 @@ export async function POST(req: NextRequest) {
           role,  
           review,
           rating,
+          image_url,
           approved: false, // Added default approval status
           created_at: new Date().toISOString()
         }

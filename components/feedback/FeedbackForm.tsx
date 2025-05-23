@@ -1,27 +1,31 @@
 'use client'
 
 import { useForm } from 'react-hook-form'
+import { useRouter } from 'next/navigation'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
 import { toast } from 'sonner'
-import { FaUser, FaBriefcase, FaComments, FaStar, FaImage } from 'react-icons/fa'
+import { FaUser, FaBriefcase, FaComments, FaStar } from 'react-icons/fa'
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
+import { ImageUpload } from './ImageUpload'
 
 const schema = z.object({
   name: z.string().min(2),
   role: z.string().min(2),
   review: z.string().min(5),
   rating: z.number().min(1).max(5),
-  image: z.instanceof(File).optional()
+  image: z.string().optional()
 })
 
 type FeedbackFormData = z.infer<typeof schema>
 
 export default function FeedbackForm() {
+  const router = useRouter()
+  const [imageUploading, setImageUploading] = useState(false)
   const { register, handleSubmit, setValue, watch, reset, formState: { errors, isSubmitting } } = useForm<FeedbackFormData>({
     resolver: zodResolver(schema)
   })
@@ -34,7 +38,7 @@ export default function FeedbackForm() {
     formData.append('role', data.role)
     formData.append('review', data.review)
     formData.append('rating', data.rating.toString())
-    if(data.image) formData.append('image', data.image)
+    if (data.image) formData.append('image', data.image)
 
     try {
       const res = await fetch('/api/feedback', {
@@ -45,6 +49,7 @@ export default function FeedbackForm() {
       if (res.ok) {
         toast.success('Thank you for your feedback!')
         reset()
+        router.push('/feedback/success')
       } else {
         toast.error('Failed to submit feedback')
       }
@@ -60,17 +65,12 @@ export default function FeedbackForm() {
           {/* Left Column - Image */}
           <div className="lg:w-5/12">
             <div className="relative h-[500px] rounded-2xl overflow-hidden shadow-xl group">
-              {/* Dark overlay that becomes more visible on hover */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent z-10 transition-opacity duration-500 group-hover:opacity-80"></div>
-
-              {/* Image with dimming effect on hover */}
               <img
                 src="https://res.cloudinary.com/dpt4bhayi/image/upload/v1746867823/468807740_816097507232942_1482742955630624124_n.jpg_voiwhk.jpg"
                 alt="Mahakal Events"
                 className="w-full h-full object-cover transition duration-500 group-hover:scale-105 group-hover:opacity-80"
               />
-
-              {/* Text with slight zoom-in on hover */}
               <div className="absolute bottom-0 left-0 right-0 p-6 z-20 transition-transform duration-500 group-hover:translate-y-[-10px]">
                 <h2 className="text-3xl font-bold text-white mb-2 transition duration-500 group-hover:scale-105">Share Your Experience</h2>
                 <p className="text-white/90 transition duration-500 group-hover:opacity-100">We value your feedback! Help us improve by sharing your thoughts.</p>
@@ -82,73 +82,33 @@ export default function FeedbackForm() {
           <div className="lg:w-7/12">
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
               <div className="space-y-5">
-                {/* Name Field */}
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
                     <FaUser className="text-primary text-lg flex-shrink-0" />
                     <Label htmlFor="name" className="font-medium">Name</Label>
                   </div>
-                  <div>
-                    <Input
-                      id="name"
-                      type="text"
-                      {...register('name')}
-                      placeholder="Your name"
-                      className="w-full px-4 py-3"
-                    />
-                    {errors.name && (
-                      <p className="text-sm font-medium text-destructive mt-1.5">
-                        {errors.name.message}
-                      </p>
-                    )}
-                  </div>
+                  <Input id="name" type="text" {...register('name')} placeholder="Your name" className="w-full px-4 py-3" />
+                  {errors.name && <p className="text-sm font-medium text-destructive mt-1.5">{errors.name.message}</p>}
                 </div>
 
-                {/* Role Field */}
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
                     <FaBriefcase className="text-primary text-lg flex-shrink-0" />
                     <Label htmlFor="role" className="font-medium">Role</Label>
                   </div>
-                  <div>
-                    <Input
-                      id="role"
-                      type="text"
-                      {...register('role')}
-                      placeholder="Your professional role"
-                      className="w-full px-4 py-3"
-                    />
-                    {errors.role && (
-                      <p className="text-sm font-medium text-destructive mt-1.5">
-                        {errors.role.message}
-                      </p>
-                    )}
-                  </div>
+                  <Input id="role" type="text" {...register('role')} placeholder="Your professional role" className="w-full px-4 py-3" />
+                  {errors.role && <p className="text-sm font-medium text-destructive mt-1.5">{errors.role.message}</p>}
                 </div>
 
-                {/* Review Field */}
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
                     <FaComments className="text-primary text-lg flex-shrink-0" />
                     <Label htmlFor="review" className="font-medium">Review</Label>
                   </div>
-                  <div>
-                    <Textarea
-                      id="review"
-                      {...register('review')}
-                      rows={4}
-                      placeholder="Share your thoughts about your experience..."
-                      className="w-full px-4 py-3 resize-none"
-                    />
-                    {errors.review && (
-                      <p className="text-sm font-medium text-destructive mt-1.5">
-                        {errors.review.message}
-                      </p>
-                    )}
-                  </div>
+                  <Textarea id="review" {...register('review')} rows={4} placeholder="Share your thoughts..." className="w-full px-4 py-3 resize-none" />
+                  {errors.review && <p className="text-sm font-medium text-destructive mt-1.5">{errors.review.message}</p>}
                 </div>
 
-                {/* Rating Field */}
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
                     <FaStar className="text-primary text-lg flex-shrink-0" />
@@ -158,54 +118,24 @@ export default function FeedbackForm() {
                     {[1, 2, 3, 4, 5].map((rating) => (
                       <FaStar
                         key={rating}
-                        className={`text-3xl cursor-pointer transition-all duration-200 ${rating <= (hoveredRating || selectedRating)
-                            ? 'text-yellow-400 scale-110'
-                            : 'text-gray-300 hover:text-gray-400'
-                          }`}
+                        className={`text-3xl cursor-pointer transition-all duration-200 ${rating <= (hoveredRating || selectedRating) ? 'text-yellow-400 scale-110' : 'text-gray-300 hover:text-gray-400'}`}
                         onClick={() => setValue('rating', rating)}
                         onMouseEnter={() => setHoveredRating(rating)}
                         onMouseLeave={() => setHoveredRating(0)}
                       />
                     ))}
                   </div>
-                  {errors.rating && (
-                    <p className="text-sm font-medium text-destructive mt-1">
-                      {errors.rating.message}
-                    </p>
-                  )}
+                  {errors.rating && <p className="text-sm font-medium text-destructive mt-1">{errors.rating.message}</p>}
                 </div>
 
-                {/* Image Upload Field */}
-                <div className="space-y-3">
-                  <div className="flex items-center gap-2">
-                    <FaImage className="text-primary text-lg flex-shrink-0" />
-                    <Label className="font-medium">Image (optional)</Label>
-                  </div>
-                  <div className="mt-1">
-                    <div className="flex justify-center px-6 pt-5 pb-6 border-2 border-dashed border-gray-300 rounded-xl bg-gray-50/50 hover:bg-gray-50 hover:border-primary/60 transition-colors duration-200">
-                      <div className="space-y-2 text-center">
-                        <FaImage className="mx-auto h-12 w-12 text-gray-400" />
-                        <div className="text-sm text-gray-600">
-                          <label htmlFor="file-upload" className="relative cursor-pointer rounded-md font-medium text-primary hover:text-primary/80 focus-within:outline-none focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2">
-                            <span>Upload an image</span>
-                            <input
-                              id="file-upload"
-                              type="file"
-                              accept="image/*"
-                              className="sr-only"
-                              onChange={e => setValue('image', e.target.files?.[0])}
-                            />
-                          </label>
-                          <p className="pl-1 inline">or drag and drop</p>
-                        </div>
-                        <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                {/* Use the ImageUpload component */}
+                <ImageUpload
+                  isUploading={imageUploading}
+                  onImageUpload={(url) => setValue('image', url)}
+                  setIsUploading={setImageUploading}
+                />
               </div>
 
-              {/* Submit Button */}
               <div className="pt-4">
                 <Button
                   type="submit"
