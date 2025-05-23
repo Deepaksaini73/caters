@@ -3,9 +3,8 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { Menu, X, Moon, Sun } from "lucide-react"
+import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { useTheme } from "next-themes"
 import { cn } from "@/lib/utils"
 import { useMobile } from "@/hooks/use-mobile"
 import { navLinks } from "@/config/layout"
@@ -13,7 +12,6 @@ import { navLinks } from "@/config/layout"
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
-  const { theme, setTheme } = useTheme()
   const isMobile = useMobile()
 
   useEffect(() => {
@@ -59,10 +57,11 @@ export default function Navbar() {
               />
             </div>
             <span className={cn(
-              "text-2xl font-bold",
+              "text-2xl md:text-3xl font-bold font-serif",
               "transition-colors duration-300",
               isScrolled ? "text-primary" : "text-primary",
-              "group-hover:text-primary/90"
+              "group-hover:text-primary/90",
+              "tracking-tight"
             )}>
               Mahakal Events
             </span>
@@ -71,33 +70,21 @@ export default function Navbar() {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
-              <Link key={link.name} href={link.href} className="text-foreground hover:text-primary transition-colors">
+              <Link 
+                key={link.name} 
+                href={link.href} 
+                className="text-base font-medium font-sans text-foreground hover:text-primary transition-colors tracking-wide"
+              >
                 {link.name}
               </Link>
             ))}
-            <Button asChild>
+            <Button asChild className="text-base font-semibold tracking-wide">
               <Link href="/quote">Get a Quote</Link>
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              aria-label="Toggle theme"
-            >
-              {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </Button>
           </nav>
 
           {/* Mobile Navigation Toggle */}
-          <div className="flex items-center md:hidden gap-2">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              aria-label="Toggle theme"
-            >
-              {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-            </Button>
+          <div className="flex items-center md:hidden">
             <Button variant="ghost" size="icon" onClick={() => setIsOpen(!isOpen)} aria-label="Toggle menu">
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </Button>
@@ -112,14 +99,14 @@ export default function Navbar() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className="px-4 py-2 text-foreground hover:text-primary hover:bg-muted transition-colors"
+                  className="px-4 py-2 text-lg font-medium text-foreground hover:text-primary hover:bg-muted transition-colors tracking-wide"
                   onClick={() => setIsOpen(false)}
                 >
                   {link.name}
                 </Link>
               ))}
               <div className="px-4 pt-2">
-                <Button asChild className="w-full">
+                <Button asChild className="w-full text-base font-semibold tracking-wide">
                   <Link href="/quote" onClick={() => setIsOpen(false)}>
                     Get a Quote
                   </Link>

@@ -2,7 +2,13 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { socialLinks, quickLinks, serviceLinks, contactInfo } from "@/config/layout"
 import { cn } from "@/lib/utils"
+import { Github } from "lucide-react" // Added
 
+const developerInfo = {
+  name: "Deepak saini", // Change this to your actual name
+  github: "https://github.com/Deepaksaini73", // Change to your actual GitHub URL
+  image: "https://res.cloudinary.com/dhi5df340/image/upload/v1748003089/deepak_image_w4yyxx.jpg" // Put your image in public folder
+}
 
 const getSocialClass = (label: string) => {
   switch (label.toLowerCase()) {
@@ -48,7 +54,6 @@ export default function Footer() {
                 </Button>
               ))}
             </div>
-
           </div>
 
           <div>
@@ -96,7 +101,42 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-border mt-8 pt-8 text-center text-muted-foreground">
+        {/* Developer Attribution Section */}
+        <div className="border-t border-border mt-8 pt-8">
+          <div className="flex flex-col items-center justify-center space-y-4">
+            <div className="flex items-center space-x-3">
+              <img
+                src={developerInfo.image}
+                alt={developerInfo.name}
+                className="w-20 h-20 rounded-full ring-2 ring-primary/20 hover:ring-primary transition-all duration-300"
+              />
+              <div className="flex flex-col">
+                <p className="text-sm font-medium bg-gradient-to-r from-primary to-primary/50 bg-clip-text text-transparent">
+                  Developed with ❤️ by
+                </p>
+                <Link
+                  href={developerInfo.github}
+                  className="flex items-center space-x-2 text-muted-foreground hover:text-primary transition-colors duration-300"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span className="font-semibold">{developerInfo.name}</span>
+                  <Github className="w-4 h-4" />
+                </Link>
+                <a href="tel:+919876543210" className="text-sm text-muted-foreground hover:text-primary transition-colors mt-1">
+                  +91-7374864316
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <br />
+        <br />
+        <hr />
+
+        {/* Copyright */}
+        <div className="text-center text-muted-foreground mt-4">
           <p>&copy; {new Date().getFullYear()} Mahakal Events. All rights reserved.</p>
         </div>
       </div>
