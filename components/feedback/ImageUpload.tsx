@@ -94,6 +94,7 @@ export function ImageUpload({ onImageUpload, isUploading, setIsUploading }: Imag
               className="w-full h-64 object-cover rounded-xl"
             />
             <button
+              title='remove-image'
               onClick={handleRemoveImage}
               className="absolute top-2 right-2 p-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors"
               type="button"
