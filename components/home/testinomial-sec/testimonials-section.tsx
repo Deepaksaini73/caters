@@ -1,9 +1,45 @@
-"use client"
-import { motion } from "framer-motion"
-import TestimonialCard from "@/components/home/testinomial-sec/testimonial-card"
-import { testimonials } from "@/config/home/testimonial"
+'use client'
+
+import { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
+import TestimonialCard from '@/components/home/testinomial-sec/testimonial-card'
+import {supabase} from '@/lib/supabaseClient'
+import { Dummytestimonials } from "@/config/home/testimonial"
+
+type Feedback = {
+  id: number
+  name: string
+  role: string
+  review: string
+  rating: number
+  image_url?: string
+}
 
 export default function TestimonialsSection() {
+  const [testimonials, setTestimonials] = useState<Feedback[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchTestimonials = async () => {
+      const { data, error } = await supabase
+        .from('feedback')
+        .select('*')
+        .eq('approved', true)
+        .order('id', { ascending: false })
+
+      if (error) {
+        console.error('Failed to fetch testimonials:', error)
+        setTestimonials(Dummytestimonials)
+      } else {
+        setTestimonials(data || [])
+      }
+
+      setLoading(false)
+    }
+
+    fetchTestimonials()
+  }, [])
+
   return (
     <section className="py-16 md:py-24 bg-muted">
       <div className="container mx-auto px-4">
@@ -20,18 +56,22 @@ export default function TestimonialsSection() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {testimonials.slice(0, 3).map((testimonial) => (
-            <TestimonialCard
-              key={testimonial.id}
-              name={testimonial.name}
-              role={testimonial.role}
-              testimonial={testimonial.testimonial}
-              rating={testimonial.rating}
-              imageSrc={testimonial.imageSrc}
-            />
-          ))}
-        </div>
+        {loading ? (
+          <p className="text-center">Loading testimonials...</p>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {testimonials.slice(0, 6).map((t) => (
+              <TestimonialCard
+                key={t.id}
+                name={t.name}
+                role={t.role}
+                testimonial={t.review}
+                rating={t.rating}
+                imageSrc={t.image_url || '/placeholder.svg'}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   )

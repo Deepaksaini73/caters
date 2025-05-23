@@ -9,7 +9,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Mahakal Caters",
+  title: "Mahakal Events",
   description: "Transform your events with our premium catering and event planning services",
   icons: {
     icon: [

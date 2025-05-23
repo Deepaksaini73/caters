@@ -1,4 +1,22 @@
-import { Palette, Camera, Calendar, Music, Utensils, Gift, PartyPopper, MapPin } from "lucide-react"
+import {
+  Palette,
+  Camera,
+  Calendar,
+  Music,
+  Utensils,
+  Gift,
+  PartyPopper,
+  MapPin,
+  Lightbulb,
+  TentTree,
+  Home,
+  Users,
+  Baby,
+  Landmark,
+  Hotel,
+  Sparkles
+} from "lucide-react"
+
 import { LucideIcon } from "lucide-react"
 
 export interface ServiceCardType {
@@ -51,5 +69,89 @@ export const services: ServiceCardType[] = [
     icon: PartyPopper,
     href: "/services/corporate",
     imageSrc: "https://res.cloudinary.com/dpt4bhayi/image/upload/v1746869829/OIP_kkqudp.jpg"
+  },
+  {
+    title: "Event Planning & Coordination",
+    description: "Complete planning and coordination services to bring your vision to life, stress-free.",
+    icon: Gift,
+    href: "/services/event-planning",
+    imageSrc: "https://res.cloudinary.com/dpt4bhayi/image/upload/v1746868120/img_20241119_153522_981-m2W8rxvovNUyKy9O_ctqhtp.jpg"
+  },
+  {
+    title: "Traditional Wedding (Eru Iyawo)",
+    description: "Specialized gift packaging and cultural setups for traditional weddings.",
+    icon: Landmark,
+    href: "/services/traditional-wedding",
+    imageSrc: "https://res.cloudinary.com/dpt4bhayi/image/upload/v1746868120/img_20241119_153522_981-m2W8rxvovNUyKy9O_ctqhtp.jpg"
+  },
+  {
+    title: "Balloon Decoration",
+    description: "Creative and vibrant balloon decor for all events, from kids parties to weddings.",
+    icon: Landmark,
+    href: "/services/balloon-decoration",
+    imageSrc: "https://res.cloudinary.com/dpt4bhayi/image/upload/v1746868120/img_20241119_153522_981-m2W8rxvovNUyKy9O_ctqhtp.jpg"
+  },
+  {
+    title: "Tent & Entry Setup",
+    description: "Elegant tenting and grand entry decor that sets the tone for your celebration.",
+    icon: TentTree,
+    href: "/services/tent-entry",
+    imageSrc: "https://res.cloudinary.com/dpt4bhayi/image/upload/v1746868120/img_20241119_153522_981-m2W8rxvovNUyKy9O_ctqhtp.jpg"
+  },
+  {
+    title: "Haldi & Mehendi Function",
+    description: "Complete decor and management for vibrant Haldi and Mehendi ceremonies.",
+    icon: Palette,
+    href: "/services/haldi-mehendi",
+    imageSrc: "https://res.cloudinary.com/dpt4bhayi/image/upload/v1746868120/img_20241119_153522_981-m2W8rxvovNUyKy9O_ctqhtp.jpg"
+  },
+  {
+    title: "Vendor & Souvenir Sourcing",
+    description: "We help you find the best vendors and curate unique souvenirs for your guests.",
+    icon: Users,
+    href: "/services/vendor-sourcing",
+    imageSrc: "https://res.cloudinary.com/dpt4bhayi/image/upload/v1746868120/img_20241119_153522_981-m2W8rxvovNUyKy9O_ctqhtp.jpg"
+  },
+  {
+    title: "Bridal Shower",
+    description: "Celebrate the bride-to-be with a beautiful, customized bridal shower event.",
+    icon: Gift,
+    href: "/services/bridal-shower",
+    imageSrc: "https://res.cloudinary.com/dpt4bhayi/image/upload/v1746868120/img_20241119_153522_981-m2W8rxvovNUyKy9O_ctqhtp.jpg"
+  },
+  {
+    title: "Baby Shower",
+    description: "Adorable themes and complete decor for welcoming your little one in style.",
+    icon: Baby,
+    href: "/services/baby-shower",
+    imageSrc: "https://res.cloudinary.com/dpt4bhayi/image/upload/v1746868120/img_20241119_153522_981-m2W8rxvovNUyKy9O_ctqhtp.jpg"
+  },
+  {
+    title: "Kiddies Party",
+    description: "Fun-filled party planning for children with themes, games, and decor.",
+    icon: Calendar,
+    href: "/services/kiddies-party",
+    imageSrc: "https://res.cloudinary.com/dpt4bhayi/image/upload/v1746868120/img_20241119_153522_981-m2W8rxvovNUyKy9O_ctqhtp.jpg"
+  },
+  {
+    title: "Anniversary Celebration",
+    description: "Elegant and heartfelt anniversary parties planned with love and attention to detail.",
+    icon: Sparkles,
+    href: "/services/anniversary",
+    imageSrc: "https://res.cloudinary.com/dpt4bhayi/image/upload/v1746868120/img_20241119_153522_981-m2W8rxvovNUyKy9O_ctqhtp.jpg"
+  },
+  {
+    title: "VIP Accommodation & Welcome",
+    description: "Special guest management, stay arrangements, and welcome services for VIPs.",
+    icon: Hotel,
+    href: "/services/vip-services",
+    imageSrc: "https://res.cloudinary.com/dpt4bhayi/image/upload/v1746868120/img_20241119_153522_981-m2W8rxvovNUyKy9O_ctqhtp.jpg"
+  },
+  {
+    title: "Christmas & Festive Decorations",
+    description: "Stylish festive decor for Christmas and holiday-themed celebrations.",
+    icon: Lightbulb,
+    href: "/services/festive-decor",
+    imageSrc: "https://res.cloudinary.com/dpt4bhayi/image/upload/v1746868120/img_20241119_153522_981-m2W8rxvovNUyKy9O_ctqhtp.jpg"
   }
 ]

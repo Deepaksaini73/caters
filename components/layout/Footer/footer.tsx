@@ -4,18 +4,18 @@ import { socialLinks, quickLinks, serviceLinks, contactInfo } from "@/config/lay
 import { cn } from "@/lib/utils"
 
 
-  const getSocialClass = (label: string) => {
-    switch (label.toLowerCase()) {
-      case 'instagram':
-        return 'hover:text-pink-500 hover:bg-gradient-to-r hover:from-pink-500 hover:to-purple-500 hover:bg-clip-text hover:text-transparent'
-      case 'facebook':
-        return 'hover:text-[#4267B2]'
-      case 'twitter':
-        return 'hover:text-[#1DA1F2]'
-      default:
-        return ''
-    }
+const getSocialClass = (label: string) => {
+  switch (label.toLowerCase()) {
+    case 'instagram':
+      return 'hover:text-pink-500 hover:bg-gradient-to-r hover:from-pink-500 hover:to-purple-500 hover:bg-clip-text hover:text-transparent'
+    case 'facebook':
+      return 'hover:text-[#4267B2]'
+    case 'twitter':
+      return 'hover:text-[#1DA1F2]'
+    default:
+      return ''
   }
+}
 
 export default function Footer() {
   return (
@@ -23,26 +23,32 @@ export default function Footer() {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
-            <h3 className="text-xl font-bold mb-4">Mahakal Caters</h3>
+            <h3 className="text-xl font-bold mb-4">Mahakal Events</h3>
             <p className="text-muted-foreground mb-4">
               Creating unforgettable events with exquisite decorations, professional photography, and comprehensive
               event management.
             </p>
             <div className="flex space-x-4">
               {socialLinks.map((social) => (
-                <Button 
-                  key={social.label} 
-                  variant="ghost" 
-                  size="icon" 
-                  asChild 
-                  className="transition-colors duration-300"
+                <Button
+                  key={social.label}
+                  variant="ghost"
+                  size="icon"
+                  asChild
+                  className="transition-all duration-300 transform hover:-translate-y-1 hover:bg-muted/50"
                 >
                   <Link href={social.href} aria-label={social.label}>
-                    <social.icon className={cn("h-5 w-5 transition-colors duration-300", getSocialClass(social.label))} />
+                    <social.icon
+                      className={cn(
+                        "h-5 w-5 transition-colors duration-300",
+                        getSocialClass(social.label)
+                      )}
+                    />
                   </Link>
                 </Button>
               ))}
             </div>
+
           </div>
 
           <div>
@@ -91,7 +97,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-border mt-8 pt-8 text-center text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} Mahakal Caters. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Mahakal Events. All rights reserved.</p>
         </div>
       </div>
     </footer>

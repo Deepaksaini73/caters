@@ -9,6 +9,7 @@ export const navLinks: NavLinkType[] = [
   { name: "Services", href: "/services" },
   { name: "Gallery", href: "/gallery" },
   { name: "Contact", href: "/contact" },
+  { name: "Feedback", href: "/feedback" }, // Added feedback link
 ]
 
 // for footer 
@@ -44,30 +45,29 @@ export const quickLinks: FooterLinkType[] = [
   { name: "About Us", href: "/about" },
   { name: "Services", href: "/services" },
   { name: "Gallery", href: "/gallery" },
-  { name: "Packages", href: "/packages" },
   { name: "Contact", href: "/contact" },
+  { name: "Feedback", href: "/feedback" }, // Added feedback link
 ]
 
 export const serviceLinks: FooterLinkType[] = [
   { name: "Wedding Decoration", href: "/services/wedding-decoration" },
   { name: "Birthday Party Decoration", href: "/services/birthday-party" },
   { name: "Photography & Videography", href: "/services/photography" },
-  { name: "Drone Footage", href: "/services/drone" },
-  { name: "Full Event Management", href: "/services/event-management" },
+  { name: "Corporate Event Management", href: "/services/corporate" },
 ]
 
 export const contactInfo: ContactInfoType[] = [
   {
     icon: MapPin,
-    text: "nawalgram, jhunjhunu , rajshthan, India",
+    text: "Near Ganesh Mandir , Bagar Road Jhunjhunu , Rajshthan, India",
   },
   {
     icon: Phone,
-    text: "+91 7374864316",
+    text: "+91 7878412963 , +91 8387026126",
   },
   {
     icon: Mail,
-    text: "info@mahakalcaters.com",
-    href: "mailto:info@mahakalcaters.com"
+    text: "MAHAKALEVENTS_PLANNER.com",
+    href: "rihu7878@gmail.com"
   },
 ]
