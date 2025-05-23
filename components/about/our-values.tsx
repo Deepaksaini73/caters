@@ -8,7 +8,7 @@ export default function OurValues() {
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl font-bold mb-6">Our Values</h2>
           <p className="text-lg text-muted-foreground">
-            At Mahakal Caters, our work is guided by a set of core values that define who we are and how we approach
+            At Mahakal Events, our work is guided by a set of core values that define who we are and how we approach
             every event.
           </p>
         </div>

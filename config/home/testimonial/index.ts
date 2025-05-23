@@ -2,42 +2,42 @@ export interface TestimonialType {
   id: number
   name: string
   role: string
-  testimonial: string
+  review: string
   rating: number
-  imageSrc: string
+  image_url?: string
 }
 
-export const testimonials: TestimonialType[] = [
+export const Dummytestimonials: TestimonialType[] = [
   {
     id: 1,
     name: "Priya Sharma",
     role: "Bride",
-    testimonial: "Mahakal Caters transformed our wedding venue into a magical paradise. The attention to detail was impeccable, and the photography captured every precious moment beautifully.",
+    review: "Mahakal Events transformed our wedding venue into a magical paradise. The attention to detail was impeccable, and the photography captured every precious moment beautifully.",
     rating: 5,
-    imageSrc: "https://res.cloudinary.com/dpt4bhayi/image/upload/v1746870039/OIP_inoia1.jpg"
+    image_url: "https://res.cloudinary.com/dpt4bhayi/image/upload/v1746870039/OIP_inoia1.jpg"
   },
   {
     id: 2,
     name: "Rahul Patel",
     role: "Birthday Celebrant",
-    testimonial: "My 30th birthday party was a hit thanks to Mahakal Caters. The themed decoration was exactly what I wanted, and the drone footage gave a unique perspective of the celebration.",
+    review: "My 30th birthday party was a hit thanks to Mahakal Events. The themed decoration was exactly what I wanted, and the drone footage gave a unique perspective of the celebration.",
     rating: 5,
-    imageSrc: "https://res.cloudinary.com/dpt4bhayi/image/upload/v1746870039/OIP_inoia1.jpg"
+    image_url: "https://res.cloudinary.com/dpt4bhayi/image/upload/v1746870039/OIP_inoia1.jpg"
   },
   {
     id: 3,
     name: "Ananya Gupta",
     role: "Corporate Event Manager",
-    testimonial: "We've used Mahakal Caters for multiple corporate events, and they never disappoint. Professional, punctual, and creative - they're our go-to event planners.",
+    review: "We've used Mahakal Events for multiple corporate events, and they never disappoint. Professional, punctual, and creative - they're our go-to event planners.",
     rating: 4,
-    imageSrc: "https://res.cloudinary.com/dpt4bhayi/image/upload/v1746870039/OIP_inoia1.jpg"
+    image_url: "https://res.cloudinary.com/dpt4bhayi/image/upload/v1746870039/OIP_inoia1.jpg"
   },
   {
     id: 4,
     name: "Amit Shah",
     role: "Anniversary Celebration",
-    testimonial: "Our silver jubilee celebration was perfect. The team's creativity and execution made it a memorable evening for all our guests.",
+    review: "Our silver jubilee celebration was perfect. The team's creativity and execution made it a memorable evening for all our guests.",
     rating: 5,
-    imageSrc: "https://res.cloudinary.com/dpt4bhayi/image/upload/v1746870039/OIP_inoia1.jpg"
+    image_url: "https://res.cloudinary.com/dpt4bhayi/image/upload/v1746870039/OIP_inoia1.jpg"
   }
 ]

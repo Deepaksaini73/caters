@@ -50,7 +50,7 @@ export default function Navbar() {
             )}>
               <Image
                 src="/logo.png"
-                alt="Mahakal Caters Logo"
+                alt="Mahakal Events Logo"
                 fill
                 className="object-contain p-1"
                 sizes="(max-width: 768px) 40px, 48px"
@@ -64,7 +64,7 @@ export default function Navbar() {
               isScrolled ? "text-primary" : "text-primary",
               "group-hover:text-primary/90"
             )}>
-              Mahakal Caters
+              Mahakal Events
             </span>
           </Link>
 

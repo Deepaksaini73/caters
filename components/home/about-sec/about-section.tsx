@@ -16,7 +16,7 @@ export default function AboutSection() {
           viewport={{ once: true }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Welcome to Mahakal Caters</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Welcome to Mahakal Events</h2>
           <p className="text-lg text-muted-foreground">
             We transform ordinary spaces into extraordinary experiences. With our expert team of decorators,
             photographers, and event planners, we create magical moments that last a lifetime.
