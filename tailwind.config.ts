@@ -1,7 +1,7 @@
 import type { Config } from "tailwindcss"
 
 const config = {
-  darkMode: undefined,
+  darkMode: ["class"],
   content: [
     "./pages/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
@@ -19,6 +19,12 @@ const config = {
   		}
   	},
   	extend: {
+		fontFamily: {
+        sans: ['Montserrat', 'sans-serif'],
+        serif: ['Playfair Display', 'serif'],
+        display: ['Playfair Display', 'serif'],
+        body: ['Montserrat', 'sans-serif'],
+      },
   		colors: {
   			border: 'hsl(var(--border))',
   			input: 'hsl(var(--input))',
