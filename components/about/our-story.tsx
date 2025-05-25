@@ -8,7 +8,7 @@ export default function OurStory() {
           <div>
             <h2 className="text-3xl font-bold mb-6">Our Story</h2>
             <p className="text-lg text-muted-foreground mb-6">
-              Mahakal Events was founded in 2010 with a simple mission: to transform ordinary events into
+              Mahakal Events was founded in 2020 with a simple mission: to transform ordinary events into
               extraordinary experiences. What started as a small family business specializing in wedding decorations
               has grown into a full-service event planning and decoration company.
             </p>
@@ -24,7 +24,7 @@ export default function OurStory() {
           </div>
           <div className="relative h-[400px] lg:h-[500px] rounded-lg overflow-hidden">
             <Image
-              src="https://res.cloudinary.com/dpt4bhayi/image/upload/v1746867823/468807740_816097507232942_1482742955630624124_n.jpg_voiwhk.jpg"
+              src="https://res.cloudinary.com/dhi5df340/image/upload/v1748163163/WhatsApp_Image_2025-05-25_at_13.44.03_2791ce40_v2wmgs.jpg"
               alt="Mahakal Events Team"
               fill
               className="object-cover"
