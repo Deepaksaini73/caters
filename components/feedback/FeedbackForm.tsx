@@ -11,7 +11,7 @@ import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
-import { ImageUpload } from './ImageUpload'
+import { ImageUpload } from '../feedback/ImageUpload'
 
 const schema = z.object({
   name: z.string().min(2),
@@ -59,7 +59,7 @@ export default function FeedbackForm() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-gray-900 dark:to-gray-800 py-12 px-4 sm:px-6 lg:px-8 transition-colors duration-500">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
           {/* Left Column - Image */}
@@ -80,45 +80,67 @@ export default function FeedbackForm() {
 
           {/* Right Column - Form */}
           <div className="lg:w-7/12">
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 transition-colors duration-500">
               <div className="space-y-5">
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
-                    <FaUser className="text-primary text-lg flex-shrink-0" />
-                    <Label htmlFor="name" className="font-medium">Name</Label>
+                    <FaUser className="text-primary text-lg flex-shrink-0 dark:text-indigo-400" />
+                    <Label htmlFor="name" className="font-medium text-gray-900 dark:text-gray-100">Name</Label>
                   </div>
-                  <Input id="name" type="text" {...register('name')} placeholder="Your name" className="w-full px-4 py-3" />
+                  <Input
+                    id="name"
+                    type="text"
+                    {...register('name')}
+                    placeholder="Your name"
+                    className="w-full px-4 py-3 placeholder-gray-500 dark:placeholder-gray-400 bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 focus:ring-indigo-500 focus:border-indigo-500"
+                  />
                   {errors.name && <p className="text-sm font-medium text-destructive mt-1.5">{errors.name.message}</p>}
                 </div>
 
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
-                    <FaBriefcase className="text-primary text-lg flex-shrink-0" />
-                    <Label htmlFor="role" className="font-medium">Role</Label>
+                    <FaBriefcase className="text-primary text-lg flex-shrink-0 dark:text-indigo-400" />
+                    <Label htmlFor="role" className="font-medium text-gray-900 dark:text-gray-100">Role</Label>
                   </div>
-                  <Input id="role" type="text" {...register('role')} placeholder="Your professional role" className="w-full px-4 py-3" />
+                  <Input
+                    id="role"
+                    type="text"
+                    {...register('role')}
+                    placeholder="Your professional role"
+                    className="w-full px-4 py-3 placeholder-gray-500 dark:placeholder-gray-400 bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 focus:ring-indigo-500 focus:border-indigo-500"
+                  />
                   {errors.role && <p className="text-sm font-medium text-destructive mt-1.5">{errors.role.message}</p>}
                 </div>
 
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
-                    <FaComments className="text-primary text-lg flex-shrink-0" />
-                    <Label htmlFor="review" className="font-medium">Review</Label>
+                    <FaComments className="text-primary text-lg flex-shrink-0 dark:text-indigo-400" />
+                    <Label htmlFor="review" className="font-medium text-gray-900 dark:text-gray-100">Review</Label>
                   </div>
-                  <Textarea id="review" {...register('review')} rows={4} placeholder="Share your thoughts..." className="w-full px-4 py-3 resize-none" />
+                  <Textarea
+                    id="review"
+                    {...register('review')}
+                    rows={4}
+                    placeholder="Share your thoughts..."
+                    className="w-full px-4 py-3 resize-none placeholder-gray-500 dark:placeholder-gray-400 bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 focus:ring-indigo-500 focus:border-indigo-500"
+                  />
                   {errors.review && <p className="text-sm font-medium text-destructive mt-1.5">{errors.review.message}</p>}
                 </div>
 
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
-                    <FaStar className="text-primary text-lg flex-shrink-0" />
-                    <Label className="font-medium">Rating</Label>
+                    <FaStar className="text-primary text-lg flex-shrink-0 dark:text-indigo-400" />
+                    <Label className="font-medium text-gray-900 dark:text-gray-100">Rating</Label>
                   </div>
                   <div className="flex items-center gap-3">
                     {[1, 2, 3, 4, 5].map((rating) => (
                       <FaStar
                         key={rating}
-                        className={`text-3xl cursor-pointer transition-all duration-200 ${rating <= (hoveredRating || selectedRating) ? 'text-yellow-400 scale-110' : 'text-gray-300 hover:text-gray-400'}`}
+                        className={`text-3xl cursor-pointer transition-all duration-200 ${
+                          rating <= (hoveredRating || selectedRating)
+                            ? 'text-yellow-400 scale-110'
+                            : 'text-gray-300 hover:text-gray-400 dark:text-gray-600 dark:hover:text-gray-400'
+                        }`}
                         onClick={() => setValue('rating', rating)}
                         onMouseEnter={() => setHoveredRating(rating)}
                         onMouseLeave={() => setHoveredRating(0)}
@@ -128,7 +150,7 @@ export default function FeedbackForm() {
                   {errors.rating && <p className="text-sm font-medium text-destructive mt-1">{errors.rating.message}</p>}
                 </div>
 
-                {/* Use the ImageUpload component */}
+                {/* ImageUpload component remains the same */}
                 <ImageUpload
                   isUploading={imageUploading}
                   onImageUpload={(url) => setValue('image', url)}
