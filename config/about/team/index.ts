@@ -1,22 +1,22 @@
 export const teamMembers = [
   {
-    name: "Mahendar Kumar",
-    role: "Founder & Creative Director",
-    image: "https://res.cloudinary.com/dpt4bhayi/image/upload/v1746867614/Screenshot_2025-05-10_143033_t43vre.png",
+    name: "Mr. Goutam Saini",
+    role: "Founder",
+    image: "https://res.cloudinary.com/dhi5df340/image/upload/v1748161416/Screenshot_2025-05-25-13-35-47-58_1_tld9lx.jpg",
   },
   {
-    name: "Goutam Saini",
-    role: "Event Manager",
-    image: "https://res.cloudinary.com/dpt4bhayi/image/upload/v1746867695/470971758_1331276297875625_9178403658689331946_n_as7pq5.jpg",
+    name: "Rajesh Alariya",
+    role: "Manageing Director",
+    image: "https://res.cloudinary.com/dhi5df340/image/upload/v1748162192/WhatsApp_Image_2025-05-25_at_14.05.33_2ffeea4d_uu2um2.jpg",
   },
   {
-    name: "Akshay Saini",
-    role: "Lead Photographer",
-    image: "/placeholder.svg?height=400&width=400&text=Vikram",
+    name: "Aditya Saini",
+    role: "Music Manager",
+    image: "https://res.cloudinary.com/dhi5df340/image/upload/v1748162281/WhatsApp_Image_2025-05-25_at_14.07.37_2280b835_sdceau.jpg",
   },
   {
-    name: "Deepak",
-    role: "Decoration Specialist",
-    image: "/placeholder.svg?height=400&width=400&text=Ananya",
+    name: "Karishan Saini",
+    role: "Event Planner",
+    image: "https://res.cloudinary.com/dhi5df340/image/upload/v1748163481/WhatsApp_Image_2025-05-25_at_14.07.37_2280b835_ajjqd0.jpg",
   },
 ]

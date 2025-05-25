@@ -48,6 +48,18 @@ export const weddingGallery: GalleryImage[] = [
     alt: "Elegant Wedding Decoration",
     category: "wedding"
   },
+  {
+    id: 108,
+    src: "https://res.cloudinary.com/dhi5df340/image/upload/v1748162924/WhatsApp_Image_2025-05-25_at_14.13.49_5ddd10e4_yc5jnd.jpg",
+    alt: "Elegant Wedding Decoration",
+    category: "wedding"
+  },
+  {
+    id: 109,
+    src: "https://res.cloudinary.com/dhi5df340/image/upload/v1748162915/WhatsApp_Image_2025-05-25_at_14.13.50_cedc4c95_f3juev.jpg",
+    alt: "Elegant Wedding Decoration",
+    category: "wedding"
+  },
   // Add more wedding images...
 ]
 
@@ -66,7 +78,37 @@ export const birthdayGallery: GalleryImage[] = [
   },
   {
     id: 203,
-    src: "https://th.bing.com/th/id/OIP.ANRKP8Ulq-EpUKSJ3RzSdwHaFj?cb=iwp1&rs=1&pid=ImgDetMain",
+    src: "https://res.cloudinary.com/dhi5df340/image/upload/v1748160800/WhatsApp_Image_2025-05-25_at_13.31.23_ad8922fb_a3vgpf.jpg",
+    alt: "Elegant Wedding Decoration",
+    category: "wedding"
+  },
+  {
+    id: 204,
+    src: "https://res.cloudinary.com/dhi5df340/image/upload/v1748161911/WhatsApp_Image_2025-05-25_at_13.31.21_76abf78c_lbdapw.jpg",
+    alt: "Elegant Wedding Decoration",
+    category: "wedding"
+  },
+  {
+    id: 205,
+    src: "https://res.cloudinary.com/dhi5df340/image/upload/v1748163430/WhatsApp_Image_2025-05-25_at_13.31.14_995a4cf2_xmigp9.jpg",
+    alt: "Elegant Wedding Decoration",
+    category: "wedding"
+  },
+  {
+    id: 206,
+    src: "https://res.cloudinary.com/dhi5df340/image/upload/v1748163445/WhatsApp_Image_2025-05-25_at_13.31.16_a9ba50ba_jjgunt.jpg",
+    alt: "Elegant Wedding Decoration",
+    category: "wedding"
+  },
+  {
+    id: 207,
+    src: "https://res.cloudinary.com/dpt4bhayi/image/upload/v1746868174/images-25-YNqBNaxZJoIQQx1B_xwgugi.jpg",
+    alt: "Elegant Wedding Decoration",
+    category: "wedding"
+  },
+  {
+    id: 208,
+    src: "https://res.cloudinary.com/dpt4bhayi/image/upload/v1746868174/images-25-YNqBNaxZJoIQQx1B_xwgugi.jpg",
     alt: "Elegant Wedding Decoration",
     category: "wedding"
   },
@@ -94,7 +136,25 @@ export const culturalGallery: GalleryImage[] = [
   },
   {
     id: 304,
-    src: "https://th.bing.com/th/id/OIP.FoI65NTt9NJJWdv7BgEg6QHaLG?cb=iwp1&rs=1&pid=ImgDetMain",
+    src: "https://res.cloudinary.com/dhi5df340/image/upload/v1748162076/maxresdefault_bwgjki.jpg",
+    alt: "Elegant Wedding Decoration",
+    category: "wedding"
+  },
+  {
+    id: 305,
+    src: "https://res.cloudinary.com/dhi5df340/image/upload/v1748162466/WhatsApp_Image_2025-05-25_at_14.10.03_e1117e86_ikvbog.jpg",
+    alt: "Elegant Wedding Decoration",
+    category: "wedding"
+  },
+  {
+    id: 306,
+    src: "https://res.cloudinary.com/dhi5df340/image/upload/v1748162806/WhatsApp_Image_2025-05-25_at_14.17.04_67490ec3_gqyxue.jpg",
+    alt: "Elegant Wedding Decoration",
+    category: "wedding"
+  },
+  {
+    id: 307,
+    src: "https://res.cloudinary.com/dhi5df340/image/upload/v1748162948/WhatsApp_Image_2025-05-25_at_14.19.37_5e6cedc4_kwazdr.jpg",
     alt: "Elegant Wedding Decoration",
     category: "wedding"
   },
