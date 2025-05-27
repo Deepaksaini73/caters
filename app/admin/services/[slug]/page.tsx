@@ -281,7 +281,7 @@ export default function ServiceGalleryAdmin() {
                 <Button
                   variant="destructive"
                   size="icon"
-                  className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
+                  className="absolute top-2 right-2 opacity-100 group-hover:opacity-100 transition-opacity"
                   onClick={() => handleDelete(item)}
                   disabled={deleting === item.id}
                 >
