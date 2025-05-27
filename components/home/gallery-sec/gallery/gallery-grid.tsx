@@ -1,7 +1,14 @@
 "use client"
 import { motion } from "framer-motion"
 import Image from "next/image"
-import { GalleryImage } from "@/config/home/gallery"
+
+interface GalleryImage {
+  id: string  // Ensure this matches Supabase structure
+  src: string
+  alt: string
+  category?: string
+  type?: 'image' | 'video'
+}
 
 const getMediaType = (src: string): 'image' | 'video' => {
   const videoPatterns = ['.mp4', '.mov', '.avi', '.webm']
@@ -27,9 +34,9 @@ const VideoPlayer = ({ src, alt }: { src: string; alt: string }) => {
 export default function GalleryGrid({ images }: GalleryGridProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      {images.map((item) => (
+      {images.map((item, index) => (
         <motion.div
-          key={item.id}
+          key={item.id || `gallery-item-${index}`} // Fallback to index if id is missing
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.3 }}
