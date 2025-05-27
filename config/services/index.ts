@@ -26,6 +26,7 @@ export async function getServiceBySlug(slug: string): Promise<ServiceDetail | nu
       gallery: [
         "https://res.cloudinary.com/dpt4bhayi/image/upload/v1746868099/photo-1689699790566-34411f85dd72_ih4wyn.jpg",
         "https://res.cloudinary.com/dhi5df340/image/upload/v1748162806/WhatsApp_Image_2025-05-25_at_14.17.04_67490ec3_gqyxue.jpg",
+        "https://res.cloudinary.com/dhi5df340/video/upload/v1748162464/WhatsApp_Video_2025-05-25_at_13.21.19_0a75884a_ljtq9s.mp4",
       ],
       features: [
         {
@@ -270,7 +271,7 @@ export async function getServiceBySlug(slug: string): Promise<ServiceDetail | nu
 
 
     {
-      slug: "anniversary",
+      slug: "anniversary-celebrations",
       title: "Anniversary Celebrations",
       description: "Celebrate years of love and memories",
       longDescription: "Whether it’s your first or fiftieth anniversary, we craft intimate, romantic settings with thoughtful decor and charming moments to honor your journey together.",

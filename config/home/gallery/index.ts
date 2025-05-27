@@ -3,6 +3,13 @@ export interface GalleryImage {
   src: string
   alt: string
   category: 'wedding' | 'birthday' | 'cultural'
+  type?: 'image' | 'video' // Optional, will be inferred if not provided
+}
+
+// Helper function to detect media type
+const getMediaType = (src: string): 'image' | 'video' => {
+  const videoPatterns = ['.mp4', '.mov', '.avi', '.webm']
+  return videoPatterns.some(pattern => src.toLowerCase().includes(pattern)) ? 'video' : 'image'
 }
 
 export const weddingGallery: GalleryImage[] = [
