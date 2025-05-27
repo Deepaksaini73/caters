@@ -1,10 +1,51 @@
 "use client"
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import GalleryGrid from "@/components/home/gallery-sec/gallery/gallery-grid"
-import { weddingGallery, birthdayGallery, culturalGallery } from "@/config/home/gallery"
+import { createClient } from "@/lib/supabaseClient"
+import { Loader2 } from "lucide-react"
+
+interface GalleryImage {
+  id: string
+  src: string
+  alt: string
+  category: 'wedding' | 'birthday' | 'cultural'
+  type: 'image' | 'video'
+}
 
 export default function GalleryPage() {
+  const [images, setImages] = useState<GalleryImage[]>([])
+  const [loading, setLoading] = useState(true)
+  const supabase = createClient()
+
+  useEffect(() => {
+    async function fetchImages() {
+      try {
+        const { data } = await supabase
+          .from('gallery_images')
+          .select('*')
+          .order('created_at', { ascending: false })
+
+        setImages(data || [])
+      } catch (error) {
+        console.error('Error fetching images:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchImages()
+  }, [])
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin" />
+      </div>
+    )
+  }
+
   return (
     <div className="min-h-screen py-16 md:py-24">
       <div className="container mx-auto px-4">
@@ -28,27 +69,17 @@ export default function GalleryPage() {
             <TabsTrigger value="cultural">Cultural</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="all" className="mt-0">
-            <GalleryGrid 
-              images={[
-                ...weddingGallery,
-                ...birthdayGallery,
-                ...culturalGallery
-              ]}
-            />
-          </TabsContent>
-
-          <TabsContent value="wedding" className="mt-0">
-            <GalleryGrid images={weddingGallery} />
-          </TabsContent>
-
-          <TabsContent value="birthday" className="mt-0">
-            <GalleryGrid images={birthdayGallery} />
-          </TabsContent>
-
-          <TabsContent value="cultural" className="mt-0">
-            <GalleryGrid images={culturalGallery} />
-          </TabsContent>
+          {['all', 'wedding', 'birthday', 'cultural'].map((category) => (
+            <TabsContent key={category} value={category}>
+              <GalleryGrid 
+                images={
+                  category === 'all' 
+                    ? images 
+                    : images.filter(img => img.category === category)
+                }
+              />
+            </TabsContent>
+          ))}
         </Tabs>
       </div>
     </div>

@@ -7,6 +7,7 @@ import {
   FaQuoteRight,
   FaSignOutAlt,
   FaCog,
+  FaImages,
   FaUsers // Added for services icon
 } from 'react-icons/fa';
 export default function AdminDashboard() {
@@ -34,6 +35,13 @@ export default function AdminDashboard() {
       path: "/admin/services",
       color: "bg-orange-50 hover:bg-orange-100"
     },
+    {
+    title: "Gallery Management",
+    description: "Manage gallery images and videos",
+    icon: <FaImages className="text-4xl mb-4" />,
+    path: "/admin/gallery",
+    color: "bg-pink-50 hover:bg-pink-100"
+  },
     {
     title: "Team Management",
     description: "Manage team members",
@@ -65,37 +73,47 @@ export default function AdminDashboard() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
-      <div className="max-w-6xl mx-auto">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800">Admin Dashboard</h1>
-          <button
-            onClick={handleLogout}
-            className="flex items-center gap-2 bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors"
-          >
-            <FaSignOutAlt />
-            Logout
-          </button>
-        </div>
+  <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-8 transition-colors">
+    <div className="max-w-6xl mx-auto">
+      {/* Header */}
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100">
+          Admin Dashboard
+        </h1>
+        <button
+          onClick={handleLogout}
+          className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-colors"
+        >
+          <FaSignOutAlt />
+          Logout
+        </button>
+      </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {adminRoutes.map((route, index) => (
-            <Link href={route.path} key={index}>
-              <div className={`${route.color} p-6 rounded-lg shadow-md transition-all duration-300 transform hover:scale-105 cursor-pointer`}>
-                <div className="flex flex-col items-center text-center">
-                  {route.icon}
-                  <h2 className="text-xl font-semibold text-gray-800 mb-2">
-                    {route.title}
-                  </h2>
-                  <p className="text-gray-600">
-                    {route.description}
-                  </p>
-                </div>
+      {/* Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {adminRoutes.map((route, index) => (
+          <Link href={route.path} key={index}>
+            <div
+              className={`${route.color} p-6 rounded-lg shadow-md transition-all duration-300 transform hover:scale-105 cursor-pointer
+                bg-white dark:bg-gray-800 
+                text-gray-800 dark:text-gray-100 
+                hover:shadow-lg`}
+            >
+              <div className="flex flex-col items-center text-center">
+                {route.icon}
+                <h2 className="text-xl font-semibold mb-2">
+                  {route.title}
+                </h2>
+                <p className="text-gray-600 dark:text-gray-400">
+                  {route.description}
+                </p>
               </div>
-            </Link>
-          ))}
-        </div>
+            </div>
+          </Link>
+        ))}
       </div>
     </div>
-  );
+  </div>
+);
+
 }
