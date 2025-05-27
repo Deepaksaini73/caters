@@ -1,8 +1,14 @@
 "use client"
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { FaComments, FaEnvelope, FaQuoteRight, FaSignOutAlt } from 'react-icons/fa';
-
+import {
+  FaComments,
+  FaEnvelope,
+  FaQuoteRight,
+  FaSignOutAlt,
+  FaCog,
+  FaUsers // Added for services icon
+} from 'react-icons/fa';
 export default function AdminDashboard() {
   const router = useRouter();
 
@@ -21,6 +27,20 @@ export default function AdminDashboard() {
   };
 
   const adminRoutes = [
+    {
+      title: "Services Management",
+      description: "Manage services, galleries and features",
+      icon: <FaCog className="text-4xl mb-4" />,
+      path: "/admin/services",
+      color: "bg-orange-50 hover:bg-orange-100"
+    },
+    {
+    title: "Team Management",
+    description: "Manage team members",
+    icon: <FaUsers className="text-4xl mb-4" />,
+    path: "/admin/team",
+    color: "bg-indigo-50 hover:bg-indigo-100"
+  },
     {
       title: "Feedback Management",
       description: "View and manage customer feedback",
@@ -57,7 +77,7 @@ export default function AdminDashboard() {
             Logout
           </button>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {adminRoutes.map((route, index) => (
             <Link href={route.path} key={index}>

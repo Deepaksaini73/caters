@@ -1,7 +1,48 @@
+"use client"
+import { useEffect, useState } from "react"
 import Image from "next/image"
-import { teamMembers } from "@/config/about/team"
+import { createClient } from "@/lib/supabaseClient"
+import { Loader2 } from "lucide-react"
+
+interface TeamMember {
+  id: string
+  name: string
+  role: string
+  image_url: string
+}
 
 export default function OurTeam() {
+  const [members, setMembers] = useState<TeamMember[]>([])
+  const [loading, setLoading] = useState(true)
+  const supabase = createClient()
+
+  useEffect(() => {
+    async function fetchMembers() {
+      try {
+        const { data } = await supabase
+          .from('team_members')
+          .select('*')
+          .order('created_at')
+
+        setMembers(data || [])
+      } catch (error) {
+        console.error('Error fetching team members:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchMembers()
+  }, [])
+
+  if (loading) {
+    return (
+      <div className="min-h-[400px] flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin" />
+      </div>
+    )
+  }
+
   return (
     <section className="py-16 md:py-24">
       <div className="container mx-auto px-4">
@@ -13,10 +54,15 @@ export default function OurTeam() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {teamMembers.map((member, index) => (
-            <div key={index} className="text-center">
+          {members.map((member) => (
+            <div key={member.id} className="text-center">
               <div className="relative h-64 mb-4 rounded-lg overflow-hidden">
-                <Image src={member.image || "/placeholder.svg"} alt={member.name} fill className="object-cover" />
+                <Image 
+                  src={member.image_url || "/placeholder.svg"} 
+                  alt={member.name} 
+                  fill 
+                  className="object-cover" 
+                />
               </div>
               <h3 className="text-xl font-semibold">{member.name}</h3>
               <p className="text-muted-foreground">{member.role}</p>

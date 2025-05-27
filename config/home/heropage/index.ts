@@ -9,7 +9,7 @@ export const heroSlides = [
   {
     title: "Capture Every Moment", 
     subtitle: "Professional Photography & Videography",
-    image: "https://res.cloudinary.com/dpt4bhayi/image/upload/v1746869257/468690978_594200526471916_230415010275403789_n_rmdfbm.jpg",
+    image: "https://res.cloudinary.com/dhi5df340/image/upload/v1748162806/WhatsApp_Image_2025-05-25_at_14.17.04_67490ec3_gqyxue.jpg",
     cta: "View Gallery",
     link: "/gallery",
   },

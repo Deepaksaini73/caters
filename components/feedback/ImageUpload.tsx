@@ -4,6 +4,10 @@ import { toast } from 'sonner'
 import { LoadingSpinner } from './LoadingSpinner'
 import { useState } from 'react'
 
+
+const CLOUDINARY_UPLOAD_PRESET = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!;
+const CLOUDINARY_CLOUD_NAME = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME!;
+
 interface ImageUploadProps {
   onImageUpload: (url: string) => void
   isUploading: boolean
@@ -31,10 +35,10 @@ export function ImageUpload({ onImageUpload, isUploading, setIsUploading }: Imag
       setIsUploading(true)
       const formData = new FormData()
       formData.append('file', file)
-      formData.append('upload_preset', 'mahakal_events_images')
+      formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET)
 
       const response = await fetch(
-        `https://api.cloudinary.com/v1_1/dhi5df340/image/upload`,
+        `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
         {
           method: 'POST',
           body: formData,
