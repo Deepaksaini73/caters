@@ -27,7 +27,13 @@ interface Feature {
   description: string
 }
 
-export default function CreateServiceForm({ onSuccess }: { onSuccess: () => void }) {
+export default function CreateServiceForm({ 
+  onSuccess, 
+  onOpenChange 
+}: { 
+  onSuccess: () => void
+  onOpenChange: (open: boolean) => void 
+}) {
   const [loading, setLoading] = useState(false)
   const [uploadingImage, setUploadingImage] = useState(false)
   const [imageFile, setImageFile] = useState<File | null>(null)
@@ -206,6 +212,8 @@ export default function CreateServiceForm({ onSuccess }: { onSuccess: () => void
       })
       setFeatures([{ title: '', description: '' }])
       onSuccess()
+      // Close the dialog
+      onOpenChange(false)
 
     } catch (error) {
       console.error('Error creating service:', error)

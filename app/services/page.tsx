@@ -4,8 +4,8 @@ import type { ReactNode } from "react"
 import { motion } from "framer-motion"
 import ServiceCard from "@/components/home/services-sec/service-card"
 import { createClient } from "@/lib/supabaseClient"
-import type { LucideIcon } from "lucide-react";
-import { JSX } from "react";
+import type { LucideIcon } from "lucide-react"
+import { Loader2 } from "lucide-react"
 
 import {
   Palette,
@@ -65,30 +65,32 @@ interface Service {
 
 export default function ServicesPage() {
   const [services, setServices] = useState<Service[]>([])
+  const [loading, setLoading] = useState(true)
   const supabase = createClient()
   const DefaultIcon = () => <span className="text-gray-500">🔧</span>
 
   useEffect(() => {
     async function fetchServices() {
-      // Fetch services with their features
-      const { data: servicesData, error } = await supabase
-        .from('services')
-        .select(`
-          *,
-          features:service_features(
-            id,
-            title,
-            description
-          )
-        `)
-        .order('title')
+      try {
+        const { data: servicesData, error } = await supabase
+          .from('services')
+          .select(`
+            *,
+            features:service_features(
+              id,
+              title,
+              description
+            )
+          `)
+          .order('title')
 
-      if (error) {
+        if (error) throw error
+        setServices(servicesData)
+      } catch (error) {
         console.error('Error fetching services:', error)
-        return
+      } finally {
+        setLoading(false)
       }
-
-      setServices(servicesData)
     }
 
     fetchServices()
@@ -109,23 +111,54 @@ export default function ServicesPage() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service) => {
-            const IconComponent = iconMap[service.icon];
-
-            return (
-              <ServiceCard
-                key={service.id}
-                title={service.title}
-                description={service.long_description}
-                icon={IconComponent ? <IconComponent className="w-6 h-6 text-primary" /> : <DefaultIcon />}
-                href={`/services/${service.slug}`}
-                imageSrc={service.image_src}
-                features={service.features}
-              />
-            );
-          })}
-        </div>
+        {loading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[...Array(6)].map((_, index) => (
+              <div
+                key={index}
+                className="rounded-xl border bg-card shadow-sm overflow-hidden"
+              >
+                <div className="relative h-48 bg-muted animate-pulse">
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <Loader2 className="h-8 w-8 animate-spin text-primary/20" />
+                  </div>
+                </div>
+                <div className="p-6 space-y-4">
+                  <div className="flex items-center gap-4">
+                    <div className="h-10 w-10 rounded-lg bg-muted animate-pulse" />
+                    <div className="h-4 w-2/3 bg-muted animate-pulse rounded" />
+                  </div>
+                  <div className="space-y-2">
+                    <div className="h-3 w-full bg-muted animate-pulse rounded" />
+                    <div className="h-3 w-5/6 bg-muted animate-pulse rounded" />
+                    <div className="h-3 w-4/6 bg-muted animate-pulse rounded" />
+                  </div>
+                  <div className="pt-4 space-y-2">
+                    <div className="h-3 w-1/2 bg-muted animate-pulse rounded" />
+                    <div className="h-3 w-2/3 bg-muted animate-pulse rounded" />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {services.map((service) => {
+              const IconComponent = iconMap[service.icon];
+              return (
+                <ServiceCard
+                  key={service.id}
+                  title={service.title}
+                  description={service.long_description}
+                  icon={IconComponent ? <IconComponent className="w-6 h-6 text-primary" /> : <DefaultIcon />}
+                  href={`/services/${service.slug}`}
+                  imageSrc={service.image_src}
+                  features={service.features}
+                />
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
   )
