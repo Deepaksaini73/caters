@@ -21,9 +21,10 @@ export const contactConfig = {
     ]
   },
   social: {
-    facebook: "https://facebook.com/mahakalcaters",
-    instagram: "https://instagram.com/mahakalcaters",
-    twitter: "https://twitter.com/mahakalcaters",
-    linkedin: "https://linkedin.com/company/mahakalcaters"
+    // facebook: "https://facebook.com/mahakalcaters",
+    instagram: "https://www.instagram.com/mahakal_decoration_and_events",
+    // twitter: "https://twitter.com/mahakalcaters",
+    // linkedin: "https://linkedin.com/company/mahakalcaters",
+    whatsapp: "https://api.whatsapp.com/send?phone=%2B917878412963",
   }
 }

@@ -11,6 +11,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogDescription,
+  DialogFooter,
 } from "@/components/ui/dialog"
 
 interface TeamMember {
@@ -147,6 +149,8 @@ export default function TeamManagement() {
   const [members, setMembers] = useState<TeamMember[]>([])
   const [loading, setLoading] = useState(true)
   const [deleting, setDeleting] = useState<string | null>(null)
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false)
+  const [memberToDelete, setMemberToDelete] = useState<TeamMember | null>(null)
   const supabase = createClient()
 
   async function fetchMembers() {
@@ -169,13 +173,20 @@ export default function TeamManagement() {
     fetchMembers()
   }, [])
 
-  const handleDelete = async (id: string) => {
+  const handleDeleteClick = (member: TeamMember) => {
+    setMemberToDelete(member)
+    setShowDeleteDialog(true)
+  }
+
+  const handleDeleteConfirm = async () => {
+    if (!memberToDelete) return
+
     try {
-      setDeleting(id)
+      setDeleting(memberToDelete.id)
       const { error } = await supabase
         .from('team_members')
         .delete()
-        .eq('id', id)
+        .eq('id', memberToDelete.id)
 
       if (error) throw error
 
@@ -186,6 +197,8 @@ export default function TeamManagement() {
       toast.error('Error deleting team member')
     } finally {
       setDeleting(null)
+      setShowDeleteDialog(false)
+      setMemberToDelete(null)
     }
   }
 
@@ -238,8 +251,8 @@ export default function TeamManagement() {
               <Button
                 variant="destructive"
                 size="icon"
-                className="absolute top-2 right-2 opacity-100 group-hover:opacity-100 transition-opacity"
-                onClick={() => handleDelete(member.id)}
+                className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
+                onClick={() => handleDeleteClick(member)}
                 disabled={deleting === member.id}
               >
                 {deleting === member.id ? (
@@ -256,6 +269,40 @@ export default function TeamManagement() {
           </div>
         ))}
       </div>
+
+      {/* Delete Confirmation Dialog */}
+      <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Delete Team Member</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to delete {memberToDelete?.name}? This action cannot be undone.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="gap-2 sm:gap-0">
+            <Button
+              variant="outline"
+              onClick={() => setShowDeleteDialog(false)}
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={handleDeleteConfirm}
+              disabled={!!deleting}
+            >
+              {deleting ? (
+                <span className="flex items-center gap-2">
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  Deleting...
+                </span>
+              ) : (
+                'Delete Member'
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }

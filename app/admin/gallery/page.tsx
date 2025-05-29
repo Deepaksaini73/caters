@@ -11,6 +11,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogFooter,
 } from "@/components/ui/dialog"
 import {
   Select,
@@ -256,6 +257,8 @@ export default function GalleryAdmin() {
   const [images, setImages] = useState<GalleryImage[]>([])
   const [loading, setLoading] = useState(true)
   const [deleting, setDeleting] = useState<string | null>(null)
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false)
+  const [imageToDelete, setImageToDelete] = useState<GalleryImage | null>(null)
   const supabase = createClient()
 
   async function fetchImages() {
@@ -278,13 +281,20 @@ export default function GalleryAdmin() {
     fetchImages()
   }, [])
 
-  const handleDelete = async (id: string) => {
+  const handleDeleteClick = (image: GalleryImage) => {
+    setImageToDelete(image)
+    setShowDeleteDialog(true)
+  }
+
+  const handleDeleteConfirm = async () => {
+    if (!imageToDelete) return
+
     try {
-      setDeleting(id)
+      setDeleting(imageToDelete.id)
       const { error } = await supabase
         .from('gallery_images')
         .delete()
-        .eq('id', id)
+        .eq('id', imageToDelete.id)
 
       if (error) throw error
 
@@ -295,6 +305,8 @@ export default function GalleryAdmin() {
       toast.error('Error deleting image')
     } finally {
       setDeleting(null)
+      setShowDeleteDialog(false)
+      setImageToDelete(null)
     }
   }
 
@@ -367,7 +379,7 @@ export default function GalleryAdmin() {
                       variant="destructive"
                       size="icon"
                       className="absolute top-2 right-2 opacity-100 group-hover: transition-opacity"
-                      onClick={() => handleDelete(image.id)}
+                      onClick={() => handleDeleteClick(image)}
                       disabled={deleting === image.id}
                     >
                       {deleting === image.id ? (
@@ -382,6 +394,62 @@ export default function GalleryAdmin() {
           </TabsContent>
         ))}
       </Tabs>
+
+      {/* Delete Confirmation Dialog */}
+      <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Delete Media</DialogTitle>
+          </DialogHeader>
+          
+          {imageToDelete && (
+            <div className="space-y-4">
+              <div className="aspect-video relative rounded-lg overflow-hidden border">
+                {imageToDelete.type === 'video' ? (
+                  <video
+                    src={imageToDelete.src}
+                    className="w-full h-full object-cover"
+                    controls
+                  />
+                ) : (
+                  <img
+                    src={imageToDelete.src}
+                    alt={imageToDelete.alt}
+                    className="w-full h-full object-cover"
+                  />
+                )}
+              </div>
+              
+              <p className="text-sm text-muted-foreground">
+                Are you sure you want to delete this {imageToDelete.type}? This action cannot be undone.
+              </p>
+            </div>
+          )}
+
+          <DialogFooter className="gap-2 sm:gap-0">
+            <Button
+              variant="outline"
+              onClick={() => setShowDeleteDialog(false)}
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={handleDeleteConfirm}
+              disabled={!!deleting}
+            >
+              {deleting ? (
+                <span className="flex items-center gap-2">
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  Deleting...
+                </span>
+              ) : (
+                'Delete'
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }

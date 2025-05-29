@@ -87,7 +87,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <MapSection />
+      {/* <MapSection /> */}
     </div>
   )
 }
