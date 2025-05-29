@@ -1,4 +1,5 @@
 import { Facebook, Instagram, Twitter, Linkedin } from "lucide-react"
+import { FaWhatsapp } from "react-icons/fa"
 import { motion } from "framer-motion"
 import { contactConfig } from "@/config/contact"
 
@@ -7,6 +8,7 @@ const socialIcons = {
   instagram: <Instagram className="h-5 w-5" />,
   twitter: <Twitter className="h-5 w-5" />,
   linkedin: <Linkedin className="h-5 w-5" />,
+  whatsapp: <FaWhatsapp className="h-5 w-5" />,
 }
 
 export default function SocialLinks() {
@@ -18,7 +20,7 @@ export default function SocialLinks() {
 
   return (
     <div className="mt-8">
-      <h3 className="text-xl font-semibold mb-4">Follow Us</h3>
+      <h3 className="text-xl font-semibold mb-4">Follow Us On</h3>
       <div className="flex gap-4">
         {socialLinks.map((social) => (
           <motion.a

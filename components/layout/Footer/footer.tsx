@@ -123,9 +123,9 @@ export default function Footer() {
                   <span className="font-semibold">{developerInfo.name}</span>
                   <Github className="w-4 h-4" />
                 </Link>
-                <a href="tel:7374864316" className="text-sm text-muted-foreground hover:text-primary transition-colors mt-1">
+                {/* <a href="tel:7374864316" className="text-sm text-muted-foreground hover:text-primary transition-colors mt-1">
                   +91-7374864316
-                </a>
+                </a> */}
               </div>
             </div>
           </div>

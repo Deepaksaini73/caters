@@ -62,7 +62,7 @@ export default function ContactForm({
               <Input
                 id="phone"
                 name="phone"
-                placeholder="+91 7374864316"
+                placeholder="+91 7878412963"
                 value={formState.phone}
                 onChange={handleChange}
               />

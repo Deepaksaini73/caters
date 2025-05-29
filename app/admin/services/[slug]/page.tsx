@@ -6,6 +6,14 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { toast } from "sonner"
 import { Trash2, Loader2 } from "lucide-react"
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+  DialogDescription,
+} from "@/components/ui/dialog"
 
 const CLOUDINARY_UPLOAD_PRESET = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!;
 const CLOUDINARY_CLOUD_NAME = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME!;
@@ -28,6 +36,8 @@ export default function ServiceGalleryAdmin() {
   const [existingMedia, setExistingMedia] = useState<GalleryItem[]>([])
   const [deleting, setDeleting] = useState<number | null>(null)
   const [uploadProgress, setUploadProgress] = useState<UploadProgress[]>([])
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false)
+  const [itemToDelete, setItemToDelete] = useState<GalleryItem | null>(null)
   const params = useParams()
   const supabase = createClient()
 
@@ -57,31 +67,34 @@ export default function ServiceGalleryAdmin() {
     }
   }
 
-  const handleDelete = async (item: GalleryItem) => {
+  const handleDeleteClick = (item: GalleryItem) => {
+    setItemToDelete(item)
+    setShowDeleteDialog(true)
+  }
+
+  const handleDeleteConfirm = async () => {
+    if (!itemToDelete) return
+    
     try {
-      setDeleting(item.id)
+      setDeleting(itemToDelete.id)
       
       // Delete from Supabase first
       await supabase
         .from('service_gallery')
         .delete()
-        .eq('id', item.id)
+        .eq('id', itemToDelete.id)
 
       // Extract public_id from Cloudinary URL
-      // Example URL: https://res.cloudinary.com/cloud_name/image/upload/v1234567890/folder/image.jpg
-      const urlParts = item.image_url.split('/')
-      const fileNameWithExt = urlParts[urlParts.length - 1] // image.jpg
-      const fileName = fileNameWithExt.split('.')[0] // image
+      const urlParts = itemToDelete.image_url.split('/')
+      const fileNameWithExt = urlParts[urlParts.length - 1]
+      const fileName = fileNameWithExt.split('.')[0]
       
-      // Get folder path if exists
       const uploadIndex = urlParts.indexOf('upload')
-      const folderPath = urlParts.slice(uploadIndex + 2, -1).join('/') // folder
+      const folderPath = urlParts.slice(uploadIndex + 2, -1).join('/')
       
       const publicId = folderPath ? `${folderPath}/${fileName}` : fileName
 
       // Delete from Cloudinary
-      const timestamp = Math.round((new Date()).getTime() / 1000)
-      
       const response = await fetch('/api/cloudinary-delete', {
         method: 'POST',
         headers: {
@@ -97,12 +110,14 @@ export default function ServiceGalleryAdmin() {
       }
 
       toast.success('Media deleted successfully')
-      fetchExistingMedia() // Refresh the list
+      fetchExistingMedia()
     } catch (error) {
       console.error('Error deleting media:', error)
       toast.error('Error deleting media')
     } finally {
       setDeleting(null)
+      setShowDeleteDialog(false)
+      setItemToDelete(null)
     }
   }
 
@@ -281,8 +296,8 @@ export default function ServiceGalleryAdmin() {
                 <Button
                   variant="destructive"
                   size="icon"
-                  className="absolute top-2 right-2 opacity-100 group-hover:opacity-100 transition-opacity"
-                  onClick={() => handleDelete(item)}
+                  className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
+                  onClick={() => handleDeleteClick(item)}
                   disabled={deleting === item.id}
                 >
                   <Trash2 className="h-4 w-4" />
@@ -292,6 +307,59 @@ export default function ServiceGalleryAdmin() {
           </div>
         </div>
       </div>
+
+      {/* Add Delete Confirmation Dialog */}
+      <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Delete Media</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to delete this media? This action cannot be undone.
+            </DialogDescription>
+          </DialogHeader>
+
+          {itemToDelete && (
+            <div className="aspect-video relative rounded-lg overflow-hidden border">
+              {itemToDelete.image_url.includes('video') ? (
+                <video
+                  src={itemToDelete.image_url}
+                  className="w-full h-full object-cover"
+                  controls
+                />
+              ) : (
+                <img
+                  src={itemToDelete.image_url}
+                  alt="Media to delete"
+                  className="w-full h-full object-cover"
+                />
+              )}
+            </div>
+          )}
+
+          <DialogFooter className="gap-2 sm:gap-0">
+            <Button
+              variant="outline"
+              onClick={() => setShowDeleteDialog(false)}
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={handleDeleteConfirm}
+              disabled={!!deleting}
+            >
+              {deleting ? (
+                <span className="flex items-center gap-2">
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  Deleting...
+                </span>
+              ) : (
+                'Delete Media'
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
