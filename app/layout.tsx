@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     creator: "@mahakalevents", // Add your Twitter handle
   },
   verification: {
-    google: "your-google-verification-code", // Add your Google verification code
+    google: "A7uZs2EqhOvldix-UoDrHl55sL5sLRAHyVlEdhPP-BU", // Add your Google verification code
   },
   robots: {
     index: true,
@@ -118,6 +118,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <meta name="google-site-verification" content="A7uZs2EqhOvldix-UoDrHl55sL5sLRAHyVlEdhPP-BU" />
         <link rel="icon" type="image/x-icon" href="/favicon/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
