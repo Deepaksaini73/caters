@@ -108,9 +108,22 @@ body {
   .text-gradient {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80;
   }
+
+  .bg-card {
+    backdrop-filter: blur(8px);
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .group:hover .text-primary {
+    filter: drop-shadow(0 0 0.5rem var(--primary));
+  }
 }
 
 /* Add padding to account for fixed navbar */
 main {
   padding-top: 4rem;
+}
+
+.section-spacing {
+  @apply py-12 md:py-16;  /* Reduced from larger values */
 }

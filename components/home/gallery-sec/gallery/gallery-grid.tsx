@@ -1,18 +1,13 @@
 "use client"
 import { motion } from "framer-motion"
 import Image from "next/image"
+import { Loader2 } from "lucide-react"
 
 interface GalleryImage {
-  id: string  // Ensure this matches Supabase structure
+  id: string
   src: string
   alt: string
-  category?: string
-  type?: 'image' | 'video'
-}
-
-const getMediaType = (src: string): 'image' | 'video' => {
-  const videoPatterns = ['.mp4', '.mov', '.avi', '.webm']
-  return videoPatterns.some(pattern => src.toLowerCase().includes(pattern)) ? 'video' : 'image'
+  media_type: 'image' | 'video'
 }
 
 interface GalleryGridProps {
@@ -36,14 +31,14 @@ export default function GalleryGrid({ images }: GalleryGridProps) {
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {images.map((item, index) => (
         <motion.div
-          key={item.id || `gallery-item-${index}`} // Fallback to index if id is missing
+          key={item.id || `gallery-item-${index}`}
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.3 }}
           viewport={{ once: true }}
           className="relative aspect-square overflow-hidden rounded-lg"
         >
-          {getMediaType(item.src) === 'video' ? (
+          {item.media_type === 'video' ? (
             <VideoPlayer src={item.src} alt={item.alt} />
           ) : (
             <Image

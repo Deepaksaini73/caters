@@ -4,7 +4,7 @@ import { createClient } from "@/lib/supabaseClient"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { toast } from "sonner"
-import { Loader2, Plus, Trash2, Upload, Image as ImageIcon } from "lucide-react"
+import { Loader2, Plus, Trash2, Upload, Image as ImageIcon , Video } from "lucide-react"
 import {
   Dialog,
   DialogContent,
@@ -26,26 +26,24 @@ interface GalleryImage {
   id: string
   src: string
   alt: string
-  category: 'wedding' | 'birthday' | 'cultural'
-  type: 'image' | 'video'
+  media_type: 'image' | 'video'
 }
 
 const CLOUDINARY_UPLOAD_PRESET = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!
 const CLOUDINARY_CLOUD_NAME = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME!
 
 interface UploadingFile {
-  file: File;
-  preview: string;
-  progress: number;
-  status: 'pending' | 'uploading' | 'completed' | 'error';
-  cloudinaryUrl?: string;
-  type: 'image' | 'video';
+  file: File
+  preview: string
+  progress: number
+  status: 'pending' | 'uploading' | 'completed' | 'error'
+  cloudinaryUrl?: string
+  type: 'image' | 'video'
 }
 
 function AddImageForm({ onSuccess }: { onSuccess: () => void }) {
   const [loading, setLoading] = useState(false)
   const [uploadingFiles, setUploadingFiles] = useState<UploadingFile[]>([])
-  const [category, setCategory] = useState('')
   const supabase = createClient()
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -85,16 +83,10 @@ function AddImageForm({ onSuccess }: { onSuccess: () => void }) {
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!category) {
-      toast.error('Please select a category')
-      return
-    }
-    
+    e.preventDefault()    
     setLoading(true)
 
     try {
-      // Upload all files to Cloudinary
       const uploadPromises = uploadingFiles.map(async (file, index) => {
         setUploadingFiles(files => 
           files.map((f, i) => 
@@ -112,8 +104,7 @@ function AddImageForm({ onSuccess }: { onSuccess: () => void }) {
           return {
             src: cloudinaryUrl,
             alt: file.file.name,
-            category,
-            type: file.type
+            media_type: file.type
           }
         } catch (error) {
           setUploadingFiles(files =>
@@ -127,7 +118,6 @@ function AddImageForm({ onSuccess }: { onSuccess: () => void }) {
 
       const uploadedFiles = await Promise.all(uploadPromises)
 
-      // Insert all records to Supabase
       const { error } = await supabase
         .from('gallery_images')
         .insert(uploadedFiles)
@@ -136,9 +126,7 @@ function AddImageForm({ onSuccess }: { onSuccess: () => void }) {
 
       toast.success('All files uploaded successfully')
       onSuccess()
-      // Clear form
       setUploadingFiles([])
-      setCategory('')
     } catch (error) {
       console.error('Error uploading files:', error)
       toast.error('Error uploading files')
@@ -167,89 +155,76 @@ function AddImageForm({ onSuccess }: { onSuccess: () => void }) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-  <div className="space-y-4">
-    <Input
-      type="file"
-      accept="image/*,video/*"
-      onChange={handleFileChange}
-      disabled={loading}
-      multiple
-    />
+      <Input
+        type="file"
+        accept="image/*,video/*"
+        onChange={handleFileChange}
+        disabled={loading}
+        multiple
+      />
 
-    <Select value={category} onValueChange={setCategory}>
-      <SelectTrigger>
-        <SelectValue placeholder="Select category" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectItem value="wedding">Wedding</SelectItem>
-        <SelectItem value="birthday">Birthday</SelectItem>
-        <SelectItem value="cultural">Cultural</SelectItem>
-      </SelectContent>
-    </Select>
-  </div>
-
-  {uploadingFiles.length > 0 && (
-    <div className="space-y-4">
-      <div
-        className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 max-h-[400px] overflow-y-auto pr-2"
-        style={{ scrollbarGutter: 'stable' }}
-      >
-        {uploadingFiles.map((file, index) => (
+      {/* Preview Grid */}
+      {uploadingFiles.length > 0 && (
+        <div className="space-y-4">
           <div
-            key={index}
-            className="relative aspect-video rounded-lg overflow-hidden border bg-card"
+            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 max-h-[400px] overflow-y-auto pr-2"
+            style={{ scrollbarGutter: 'stable' }}
           >
-            {file.type === 'video' ? (
-              <video
-                src={file.preview}
-                className="w-full h-full object-cover"
-                controls
-              />
-            ) : (
-              <img
-                src={file.preview}
-                alt="Preview"
-                className="w-full h-full object-cover"
-              />
-            )}
-            <div className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
-              <Button
-                type="button"
-                variant="destructive"
-                size="icon"
-                onClick={() => removeFile(index)}
-                disabled={loading}
+            {uploadingFiles.map((file, index) => (
+              <div
+                key={index}
+                className="relative aspect-video rounded-lg overflow-hidden border bg-card"
               >
-                <Trash2 className="h-4 w-4" />
-              </Button>
-            </div>
-            {file.status === 'uploading' && (
-              <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
-                <Loader2 className="h-8 w-8 animate-spin text-white" />
+                {file.type === 'video' ? (
+                  <video
+                    src={file.preview}
+                    className="w-full h-full object-cover"
+                    controls
+                  />
+                ) : (
+                  <img
+                    src={file.preview}
+                    alt="Preview"
+                    className="w-full h-full object-cover"
+                  />
+                )}
+                <div className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+                  <Button
+                    type="button"
+                    variant="destructive"
+                    size="icon"
+                    onClick={() => removeFile(index)}
+                    disabled={loading}
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </div>
+                {file.status === 'uploading' && (
+                  <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
+                    <Loader2 className="h-8 w-8 animate-spin text-white" />
+                  </div>
+                )}
               </div>
-            )}
+            ))}
           </div>
-        ))}
-      </div>
-    </div>
-  )}
+        </div>
+      )}
 
-  <Button
-    type="submit"
-    disabled={loading || uploadingFiles.length === 0}
-    className="w-full"
-  >
-    {loading ? (
-      <span className="flex items-center gap-2">
-        <Loader2 className="h-4 w-4 animate-spin" />
-        Uploading Files...
-      </span>
-    ) : (
-      `Upload ${uploadingFiles.length} File${uploadingFiles.length === 1 ? '' : 's'}`
-    )}
-  </Button>
-</form>
-
+      <Button
+        type="submit"
+        disabled={loading || uploadingFiles.length === 0}
+        className="w-full"
+      >
+        {loading ? (
+          <span className="flex items-center gap-2">
+            <Loader2 className="h-4 w-4 animate-spin" />
+            Uploading Files...
+          </span>
+        ) : (
+          `Upload ${uploadingFiles.length} File${uploadingFiles.length === 1 ? '' : 's'}`
+        )}
+      </Button>
+    </form>
   )
 }
 
@@ -345,24 +320,31 @@ export default function GalleryAdmin() {
       </div>
 
       <Tabs defaultValue="all" className="w-full">
-        <TabsList className="grid w-full grid-cols-4 mb-8">
-          <TabsTrigger value="all">All</TabsTrigger>
-          <TabsTrigger value="wedding">Wedding</TabsTrigger>
-          <TabsTrigger value="birthday">Birthday</TabsTrigger>
-          <TabsTrigger value="cultural">Cultural</TabsTrigger>
+        <TabsList className="flex justify-center gap-2 mb-8">
+          <TabsTrigger value="all" className="flex items-center gap-2">
+            All Media
+          </TabsTrigger>
+          <TabsTrigger value="image" className="flex items-center gap-2">
+            <ImageIcon className="h-4 w-4" /> 
+            Images
+          </TabsTrigger>
+          <TabsTrigger value="video" className="flex items-center gap-2">
+            <Video className="h-4 w-4" />
+            Videos
+          </TabsTrigger>
         </TabsList>
 
-        {['all', 'wedding', 'birthday', 'cultural'].map((category) => (
-          <TabsContent key={category} value={category}>
+        {['all', 'image', 'video'].map((type) => (
+          <TabsContent key={type} value={type}>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {images
-                .filter(img => category === 'all' || img.category === category)
+                .filter(img => type === 'all' || img.media_type === type)
                 .map((image) => (
                   <div
                     key={image.id}
                     className="group relative aspect-square rounded-lg overflow-hidden border bg-card"
                   >
-                    {image.type === 'video' ? (
+                    {image.media_type === 'video' ? (
                       <video
                         src={image.src}
                         className="w-full h-full object-cover"
@@ -405,7 +387,7 @@ export default function GalleryAdmin() {
           {imageToDelete && (
             <div className="space-y-4">
               <div className="aspect-video relative rounded-lg overflow-hidden border">
-                {imageToDelete.type === 'video' ? (
+                {imageToDelete.media_type === 'video' ? (
                   <video
                     src={imageToDelete.src}
                     className="w-full h-full object-cover"
@@ -421,7 +403,7 @@ export default function GalleryAdmin() {
               </div>
               
               <p className="text-sm text-muted-foreground">
-                Are you sure you want to delete this {imageToDelete.type}? This action cannot be undone.
+                Are you sure you want to delete this {imageToDelete.media_type}? This action cannot be undone.
               </p>
             </div>
           )}

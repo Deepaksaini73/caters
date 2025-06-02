@@ -163,10 +163,13 @@ export default function ServiceGalleryAdmin() {
           formData.append("file", file)
           formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET)
 
-          const cloudinaryRes = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/upload`, {
-            method: "POST",
-            body: formData
-          })
+          const cloudinaryRes = await fetch(
+            `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/upload`,
+            {
+              method: "POST",
+              body: formData
+            }
+          )
 
           const data = await cloudinaryRes.json()
 
@@ -174,13 +177,28 @@ export default function ServiceGalleryAdmin() {
             throw new Error("Cloudinary upload failed")
           }
 
-          // Save to Supabase
-          await supabase
-            .from('service_gallery')
-            .insert({
-              service_id: service.data.id,
-              image_url: data.secure_url
-            })
+          // Determine media type
+          const mediaType = file.type.startsWith('video/') ? 'video' : 'image'
+
+          // Save to both tables in parallel
+          await Promise.all([
+            // Save to service_gallery
+            supabase
+              .from('service_gallery')
+              .insert({
+                service_id: service.data.id,
+                image_url: data.secure_url
+              }),
+            
+            // Save to gallery_images
+            supabase
+              .from('gallery_images')
+              .insert({
+                src: data.secure_url,
+                alt: file.name,
+                media_type: mediaType
+              })
+          ])
 
           // Update progress to completed
           setUploadProgress(prev => prev.map((p, index) => 
@@ -195,9 +213,10 @@ export default function ServiceGalleryAdmin() {
         }
       }
 
-      toast.success('Files uploaded successfully')
+      toast.success('Files uploaded successfully to both galleries')
       setFiles([])
       setUploadProgress([])
+      fetchExistingMedia()
     } catch (error) {
       toast.error('Error uploading files')
       console.error(error)

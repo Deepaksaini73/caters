@@ -5,6 +5,7 @@ import ServicesSection from "@/components/home/services-sec/services-section"
 import GallerySection from "@/components/home/gallery-sec/gallery-section"
 import TestimonialsSection from "@/components/home/testinomial-sec/testimonials-section"
 import CTASection from "@/components/home/cta-sec/cta-section"
+import WhatWeOffer from "@/components/home/whatWeOffer-sec/whatWeoffer"
 
 export default function Home() {
   return (
@@ -12,19 +13,28 @@ export default function Home() {
       <div className="hero-gradient">
         <HeroSection />
       </div>
-      <div className="gradient-secondary section-spacing">
+      
+      <div className="gradient-secondary">
         <AboutSection />
       </div>
-      <div className="gradient-overlay section-spacing">
+
+      <div className="gradient-secondary">
+        <WhatWeOffer />
+      </div>
+
+      <div className="gradient-overlay">
         <ServicesSection />
       </div>
-      <div className="bg-accent/5 section-spacing">
+      
+      <div className="bg-accent/5">
         <GallerySection />
       </div>
-      <div className="gradient-secondary section-spacing">
+      
+      <div className="gradient-secondary">
         <TestimonialsSection />
       </div>
-      <div className="gradient-secondary section-spacing">
+      
+      <div className="gradient-secondary">
         <CTASection />
       </div>
     </div>
