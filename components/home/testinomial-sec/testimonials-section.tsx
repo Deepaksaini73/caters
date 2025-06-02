@@ -67,7 +67,7 @@ export default function TestimonialsSection() {
                 role={t.role}
                 testimonial={t.review}
                 rating={t.rating}
-                imageSrc={t.image_url || '/placeholder.svg'}
+                imageSrc={t.image_url || 'https://th.bing.com/th/id/OIP.9vm7eDbnZS6Yy4ETUfEBAgHaGw?rs=1&pid=ImgDetMain'}
               />
             ))}
           </div>

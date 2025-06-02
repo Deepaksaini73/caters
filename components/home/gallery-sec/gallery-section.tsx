@@ -6,31 +6,30 @@ import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import GalleryGrid from "./gallery/gallery-grid"
 import { createClient } from "@/lib/supabaseClient"
-import { Loader2 } from "lucide-react"
+import { Loader2, Image, Video } from "lucide-react"
 
 interface GalleryImage {
   id: string
   src: string
   alt: string
-  category: 'wedding' | 'birthday' | 'cultural'
-  type: 'image' | 'video'
+  media_type: 'image' | 'video'
 }
 
 export default function GallerySection() {
-  const [images, setImages] = useState<GalleryImage[]>([])
+  const [media, setMedia] = useState<GalleryImage[]>([])
   const [loading, setLoading] = useState(true)
   const supabase = createClient()
 
   useEffect(() => {
-    async function fetchImages() {
+    async function fetchMedia() {
       try {
         const { data } = await supabase
           .from('gallery_images')
           .select('*')
           .order('created_at', { ascending: false })
-          .limit(9) // Fetch only 9 latest images
+          .limit(9)
 
-        setImages(data || [])
+        setMedia(data || [])
       } catch (error) {
         console.error('Error fetching gallery:', error)
       } finally {
@@ -38,7 +37,7 @@ export default function GallerySection() {
       }
     }
 
-    fetchImages()
+    fetchMedia()
   }, [])
 
   return (
@@ -53,7 +52,7 @@ export default function GallerySection() {
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Portfolio</h2>
           <p className="text-lg text-muted-foreground">
-            Browse through our recent events and get inspired for your own celebration.
+            Explore our collection of images and videos
           </p>
         </motion.div>
 
@@ -67,49 +66,38 @@ export default function GallerySection() {
             ))}
           </div>
         ) : (
-          <Tabs defaultValue="wedding" className="w-full">
-            <TabsList className="grid w-full grid-cols-3 mb-8">
-              <TabsTrigger value="wedding">Weddings</TabsTrigger>
-              <TabsTrigger value="birthday">Birthdays</TabsTrigger>
-              <TabsTrigger value="cultural">Cultural Events</TabsTrigger>
+          <Tabs defaultValue="all" className="w-full">
+            <TabsList className="flex justify-center gap-2 mb-8">
+              <TabsTrigger value="all" className="flex items-center gap-2">
+                All Media
+              </TabsTrigger>
+              <TabsTrigger value="image" className="flex items-center gap-2">
+                <Image className="h-4 w-4" />
+                Images
+              </TabsTrigger>
+              <TabsTrigger value="video" className="flex items-center gap-2">
+                <Video className="h-4 w-4" />
+                Videos
+              </TabsTrigger>
             </TabsList>
 
-            <TabsContent value="wedding" className="mt-0">
+            <TabsContent value="all">
+              <GalleryGrid images={media.slice(0, 6)} />
+            </TabsContent>
+            
+            <TabsContent value="image">
               <GalleryGrid 
-                images={images
-                  .filter(img => img.category === 'wedding')
-                  .slice(0, 3)
-                  .map(img => ({
-                    src: img.src,
-                    alt: img.alt,
-                    type: img.type
-                  }))}
+                images={media
+                  .filter(item => item.media_type === 'image')
+                  .slice(0, 6)} 
               />
             </TabsContent>
-
-            <TabsContent value="birthday" className="mt-0">
+            
+            <TabsContent value="video">
               <GalleryGrid 
-                images={images
-                  .filter(img => img.category === 'birthday')
-                  .slice(0, 3)
-                  .map(img => ({
-                    src: img.src,
-                    alt: img.alt,
-                    type: img.type
-                  }))}
-              />
-            </TabsContent>
-
-            <TabsContent value="cultural" className="mt-0">
-              <GalleryGrid 
-                images={images
-                  .filter(img => img.category === 'cultural')
-                  .slice(0, 3)
-                  .map(img => ({
-                    src: img.src,
-                    alt: img.alt,
-                    type: img.type
-                  }))}
+                images={media
+                  .filter(item => item.media_type === 'video')
+                  .slice(0, 6)} 
               />
             </TabsContent>
           </Tabs>
