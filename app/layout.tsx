@@ -9,26 +9,26 @@ import { ThemeProvider } from "@/components/theme-provider"
 
 const inter = Inter({ subsets: ["latin"] })
 
-const siteUrl = "https://mahakal-events.vercel.app" // Replace with your actual domain
+const siteUrl = "https://mahakal-events.vercel.app"
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Mahakal Events - Premium Event Planning & Catering Services",
+    default: "Mahakal Events - Premier Event Planning & Decoration Services in Jhunjhunu",
     template: "%s | Mahakal Events"
   },
-  description: "Transform your events with Mahakal Events - Indore's premier event planning and catering service. Specializing in weddings, corporate events, birthday parties, and cultural celebrations. Professional decoration, catering, and event management services.",
+  description: "Transform your celebrations with Mahakal Events - Jhunjhunu's leading event planning service. Specialized in weddings, corporate events, birthday parties with professional decoration and catering services.",
   keywords: [
-    "event planning",
-    "catering services",
-    "wedding planner",
-    "event decoration",
+    "event planning Jhunjhunu",
+    "wedding decoration",
+    "catering services Rajasthan",
+    "wedding planner Jhunjhunu",
     "Mahakal Events",
-    "party planner Indore",
-    "corporate events",
-    "birthday party planning",
-    "wedding catering",
-    "event management"
+    "event decoration Jhunjhunu",
+    "corporate event management",
+    "birthday party decoration",
+    "wedding venues Rajasthan",
+    "traditional wedding planning"
   ],
   authors: [{ name: "Mahakal Events" }],
   creator: "Mahakal Events",
@@ -43,27 +43,27 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    locale: "en_US",
+    locale: "en_IN",
     url: siteUrl,
-    title: "Mahakal Events - Premium Event Planning & Catering Services",
-    description: "Transform your events with Mahakal Events - Professional event planning, catering, and decoration services in Indore.",
+    title: "Mahakal Events - Premier Event Planning & Decoration Services",
+    description: "Transform your celebrations with Mahakal Events - Professional event planning, decoration, and catering services in Jhunjhunu, Rajasthan.",
     siteName: "Mahakal Events",
     images: [{
-      url: `${siteUrl}/images/og-image.jpg`, // Add your OG image
+      url: `${siteUrl}/images/og-image.jpg`,
       width: 1200,
       height: 630,
-      alt: "Mahakal Events Banner"
+      alt: "Mahakal Events - Event Planning & Decoration Services"
     }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mahakal Events - Premium Event Planning & Catering Services",
-    description: "Transform your events with Mahakal Events - Professional event planning, catering, and decoration services in Indore.",
-    images: [`${siteUrl}/images/twitter-image.jpg`], // Add your Twitter card image
-    creator: "@mahakalevents", // Add your Twitter handle
+    title: "Mahakal Events - Premier Event Planning Services",
+    description: "Professional event planning, decoration, and catering services in Jhunjhunu, Rajasthan.",
+    images: [`${siteUrl}/images/twitter-image.jpg`],
+    creator: "@mahakalevents",
   },
   verification: {
-    google: "A7uZs2EqhOvldix-UoDrHl55sL5sLRAHyVlEdhPP-BU", // Add your Google verification code
+    google: "A7uZs2EqhOvldix-UoDrHl55sL5sLRAHyVlEdhPP-BU",
   },
   robots: {
     index: true,
@@ -123,6 +123,10 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+        <meta name="description" content="Mahakal Events - Professional event planning and decoration services in Jhunjhunu" />
+        <meta name="robots" content="index, follow" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="canonical" href="https://mahakal-events.vercel.app/" />
         <link rel="manifest" href="/favicon/site.webmanifest" />
       </head>
       <body className={inter.className}>
@@ -132,26 +136,41 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "LocalBusiness",
+              "@type": "EventPlanning",
               "name": "Mahakal Events",
               "image": `${siteUrl}/images/logo.png`,
               "@id": siteUrl,
               "url": siteUrl,
               "telephone": "7878412963",
               "address": {
-                "@type": "333001",
+                "@type": "PostalAddress",
                 "streetAddress": "Bagar Road",
-                "addressLocality": "jhunjhunu",
+                "addressLocality": "Jhunjhunu",
+                "addressRegion": "Rajasthan",
                 "postalCode": "333001",
                 "addressCountry": "IN"
               },
+              "geo": {
+                "@type": "GeoCoordinates",
+                "latitude": "28.1289",
+                "longitude": "75.4022"
+              },
+              "openingHours": "Mo,Tu,We,Th,Fr,Sa,Su 09:00-21:00",
               "priceRange": "₹₹₹",
-              "description": "Premium event planning and catering services in Indore",
+              "description": "Premier event planning and decoration services in Jhunjhunu, specializing in weddings, corporate events, and celebrations",
               "sameAs": [
-                "your-facebook-url",
                 "https://www.instagram.com/mahakal_decoration_and_events",
                 "https://api.whatsapp.com/send?phone=%2B917878412963"
-              ]
+              ],
+              "serviceArea": {
+                "@type": "GeoCircle",
+                "geoMidpoint": {
+                  "@type": "GeoCoordinates",
+                  "latitude": "28.1289",
+                  "longitude": "75.4022"
+                },
+                "geoRadius": "50000"
+              }
             })
           }}
         />

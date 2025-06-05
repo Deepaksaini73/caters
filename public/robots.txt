@@ -1,3 +1,12 @@
 User-agent: *
 Allow: /
+Allow: /services
+Allow: /gallery
+Allow: /about
+Allow: /contact
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+# Sitemap
 Sitemap: https://mahakal-events.vercel.app/sitemap.xml
