@@ -75,21 +75,17 @@ export default function GalleryPage() {
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="all">
-            <GalleryGrid images={media} />
-          </TabsContent>
-          
-          <TabsContent value="image">
-            <GalleryGrid 
-              images={media.filter(item => item.media_type === 'image')} 
-            />
-          </TabsContent>
-          
-          <TabsContent value="video">
-            <GalleryGrid 
-              images={media.filter(item => item.media_type === 'video')} 
-            />
-          </TabsContent>
+        <TabsContent value="all">
+          <GalleryGrid images={media} mode="all" />
+        </TabsContent>
+
+        <TabsContent value="image">
+          <GalleryGrid images={media.filter(item => item.media_type === 'image')} mode="image" />
+        </TabsContent>
+
+        <TabsContent value="video">
+          <GalleryGrid images={media.filter(item => item.media_type === 'video')} mode="video" />
+        </TabsContent>
         </Tabs>
       </div>
     </div>

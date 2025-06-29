@@ -20,6 +20,8 @@ const VideoPlayer = ({ url, thumbnail }: { url: string; thumbnail?: string }) =>
     <video
       className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
       controls
+      controlsList="nodownload"
+      disablePictureInPicture
       poster={thumbnail}
     >
       <source src={url} type="video/mp4" />
@@ -27,6 +29,7 @@ const VideoPlayer = ({ url, thumbnail }: { url: string; thumbnail?: string }) =>
     </video>
   )
 }
+
 
 export default function Gallery({ media, title }: GalleryProps) {
   return (

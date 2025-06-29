@@ -19,6 +19,8 @@ const VideoPlayer = ({ src, alt }: { src: string; alt: string }) => {
     <video
       className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
       controls
+      controlsList="nodownload"
+      disablePictureInPicture
     >
       <source src={src} type="video/mp4" />
       {alt}
