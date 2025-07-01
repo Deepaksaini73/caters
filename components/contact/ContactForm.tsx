@@ -17,14 +17,20 @@ export default function ContactForm({
 }: ContactFormProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: 20, scale: 0.98 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      whileHover={{
+        scale: 1.01,
+        boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.10)",
+        transition: { duration: 0.25, ease: "easeOut" },
+      }}
       transition={{ duration: 0.5 }}
       viewport={{ once: true }}
+      className="w-full max-w-2xl mx-auto"
     >
-      <Card>
+      <Card className="bg-white/80 dark:bg-black/40 backdrop-blur-md border border-primary/10 shadow-lg rounded-2xl transition-all duration-200 hover:shadow-2xl">
         <CardHeader>
-          <CardTitle>Send Us a Message</CardTitle>
+          <CardTitle className="text-2xl font-bold">Send Us a Message</CardTitle>
           <CardDescription>
             Fill out the form below and we'll get back to you as soon as possible.
           </CardDescription>
@@ -94,26 +100,39 @@ export default function ContactForm({
             </div>
 
             <div className="space-y-4">
-              <Button type="submit" className="w-full" disabled={isSubmitting}>
-                {isSubmitting ? (
-                  <>Sending Message...</>
-                ) : (
-                  <>
-                    <Send className="mr-2 h-4 w-4" /> Send Message
-                  </>
-                )}
-              </Button>
+              <motion.div
+                whileHover={{ scale: 1.04, boxShadow: "0 0 16px 2px var(--primary)" }}
+                transition={{ duration: 0.2 }}
+              >
+                <Button type="submit" className="w-full" disabled={isSubmitting}>
+                  {isSubmitting ? (
+                    <>Sending Message...</>
+                  ) : (
+                    <>
+                      <Send className="mr-2 h-4 w-4" /> Send Message
+                    </>
+                  )}
+                </Button>
+              </motion.div>
 
               {error && (
-                <div className="bg-red-100 text-red-800 p-4 rounded-md">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="bg-red-100 text-red-800 p-4 rounded-md"
+                >
                   {error}
-                </div>
+                </motion.div>
               )}
 
               {isSubmitted && (
-                <div className="bg-green-100 text-green-800 p-4 rounded-md">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="bg-green-100 text-green-800 p-4 rounded-md"
+                >
                   Thank you for your message! We'll get back to you soon.
-                </div>
+                </motion.div>
               )}
             </div>
           </form>

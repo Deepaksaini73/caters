@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { ImageUpload } from '../feedback/ImageUpload'
+import { motion } from "framer-motion"
 
 const schema = z.object({
   name: z.string().min(2),
@@ -59,40 +60,71 @@ export default function FeedbackForm() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-gray-900 dark:to-gray-800 py-12 px-4 sm:px-6 lg:px-8 transition-colors duration-500">
-      <div className="max-w-7xl mx-auto">
+    <section className="relative py-8 md:py-16 overflow-hidden">
+      {/* Animated Gradient Background */}
+      <motion.div
+        className="absolute inset-0 bg-gradient-to-br from-primary/10 via-accent/10 to-secondary/10 blur-2xl z-0"
+        animate={{ opacity: [0.7, 1, 0.7] }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+      />
+
+      <div className="max-w-7xl mx-auto px-2 sm:px-4 relative z-10">
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
           {/* Left Column - Image */}
-          <div className="lg:w-5/12">
-            <div className="relative h-[500px] rounded-2xl overflow-hidden shadow-xl group">
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent z-10 transition-opacity duration-500 group-hover:opacity-80"></div>
-              <img
+          <motion.div
+            initial={{ opacity: 0, x: -40, scale: 0.98 }}
+            whileInView={{ opacity: 1, x: 0, scale: 1 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            viewport={{ once: true }}
+            className="lg:w-5/12"
+          >
+            <div className="relative h-[340px] sm:h-[400px] md:h-[500px] rounded-2xl overflow-hidden shadow-xl group bg-white/70 dark:bg-black/40 backdrop-blur-md border border-primary/10">
+              <motion.img
                 src="https://res.cloudinary.com/dpt4bhayi/image/upload/v1746867823/468807740_816097507232942_1482742955630624124_n.jpg_voiwhk.jpg"
                 alt="Mahakal Events"
                 className="w-full h-full object-cover transition duration-500 group-hover:scale-105 group-hover:opacity-80"
+                initial={{ scale: 1 }}
+                whileHover={{ scale: 1.04 }}
+                transition={{ duration: 0.5 }}
               />
-              <div className="absolute bottom-0 left-0 right-0 p-6 z-20 transition-transform duration-500 group-hover:translate-y-[-10px]">
-                <h2 className="text-3xl font-bold text-white mb-2 transition duration-500 group-hover:scale-105">Share Your Experience</h2>
-                <p className="text-white/90 transition duration-500 group-hover:opacity-100">We value your feedback! Help us improve by sharing your thoughts.</p>
-              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10 transition-opacity duration-500 group-hover:opacity-80"></div>
+              <motion.div
+                className="absolute bottom-0 left-0 right-0 p-6 z-20"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.2 }}
+                viewport={{ once: true }}
+              >
+                <h2 className="text-3xl font-bold text-white mb-2 drop-shadow-lg">Share Your Experience</h2>
+                <p className="text-white/90">We value your feedback! Help us improve by sharing your thoughts.</p>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right Column - Form */}
-          <div className="lg:w-7/12">
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 transition-colors duration-500">
+          <motion.div
+            initial={{ opacity: 0, x: 40, scale: 0.98 }}
+            whileInView={{ opacity: 1, x: 0, scale: 1 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            viewport={{ once: true }}
+            className="lg:w-7/12"
+          >
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="space-y-6 bg-white/80 dark:bg-black/40 p-6 md:p-8 rounded-2xl shadow-xl border border-primary/10 transition-colors duration-500"
+            >
               <div className="space-y-5">
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
                     <FaUser className="text-primary text-lg flex-shrink-0 dark:text-indigo-400" />
-                    <Label htmlFor="name" className="font-medium text-gray-900 dark:text-gray-100">Name</Label>
+                    <Label htmlFor="name" className="font-medium">Name</Label>
                   </div>
                   <Input
                     id="name"
                     type="text"
                     {...register('name')}
                     placeholder="Your name"
-                    className="w-full px-4 py-3 placeholder-gray-500 dark:placeholder-gray-400 bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 focus:ring-indigo-500 focus:border-indigo-500"
+                    className="w-full px-4 py-3"
                   />
                   {errors.name && <p className="text-sm font-medium text-destructive mt-1.5">{errors.name.message}</p>}
                 </div>
@@ -100,14 +132,14 @@ export default function FeedbackForm() {
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
                     <FaBriefcase className="text-primary text-lg flex-shrink-0 dark:text-indigo-400" />
-                    <Label htmlFor="role" className="font-medium text-gray-900 dark:text-gray-100">Role</Label>
+                    <Label htmlFor="role" className="font-medium">Role</Label>
                   </div>
                   <Input
                     id="role"
                     type="text"
                     {...register('role')}
                     placeholder="Your professional role"
-                    className="w-full px-4 py-3 placeholder-gray-500 dark:placeholder-gray-400 bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 focus:ring-indigo-500 focus:border-indigo-500"
+                    className="w-full px-4 py-3"
                   />
                   {errors.role && <p className="text-sm font-medium text-destructive mt-1.5">{errors.role.message}</p>}
                 </div>
@@ -115,14 +147,14 @@ export default function FeedbackForm() {
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
                     <FaComments className="text-primary text-lg flex-shrink-0 dark:text-indigo-400" />
-                    <Label htmlFor="review" className="font-medium text-gray-900 dark:text-gray-100">Review</Label>
+                    <Label htmlFor="review" className="font-medium">Review</Label>
                   </div>
                   <Textarea
                     id="review"
                     {...register('review')}
                     rows={4}
                     placeholder="Share your thoughts..."
-                    className="w-full px-4 py-3 resize-none placeholder-gray-500 dark:placeholder-gray-400 bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 focus:ring-indigo-500 focus:border-indigo-500"
+                    className="w-full px-4 py-3 resize-none"
                   />
                   {errors.review && <p className="text-sm font-medium text-destructive mt-1.5">{errors.review.message}</p>}
                 </div>
@@ -130,7 +162,7 @@ export default function FeedbackForm() {
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
                     <FaStar className="text-primary text-lg flex-shrink-0 dark:text-indigo-400" />
-                    <Label className="font-medium text-gray-900 dark:text-gray-100">Rating</Label>
+                    <Label className="font-medium">Rating</Label>
                   </div>
                   <div className="flex items-center gap-3">
                     {[1, 2, 3, 4, 5].map((rating) => (
@@ -150,7 +182,6 @@ export default function FeedbackForm() {
                   {errors.rating && <p className="text-sm font-medium text-destructive mt-1">{errors.rating.message}</p>}
                 </div>
 
-                {/* ImageUpload component remains the same */}
                 <ImageUpload
                   isUploading={imageUploading}
                   onImageUpload={(url) => setValue('image', url)}
@@ -159,28 +190,33 @@ export default function FeedbackForm() {
               </div>
 
               <div className="pt-4">
-                <Button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full h-12 text-base font-medium bg-primary hover:bg-primary/90"
+                <motion.div
+                  whileHover={{ scale: 1.04, boxShadow: "0 0 16px 2px var(--primary)" }}
+                  transition={{ duration: 0.2 }}
                 >
-                  {isSubmitting ? (
-                    <>
-                      <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
-                      </svg>
-                      Submitting...
-                    </>
-                  ) : (
-                    'Submit Feedback'
-                  )}
-                </Button>
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full h-12 text-base font-medium bg-primary hover:bg-primary/90"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                        </svg>
+                        Submitting...
+                      </>
+                    ) : (
+                      'Submit Feedback'
+                    )}
+                  </Button>
+                </motion.div>
               </div>
             </form>
-          </div>
+          </motion.div>
         </div>
       </div>
-    </div>
+    </section>
   )
 }
