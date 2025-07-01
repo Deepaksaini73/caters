@@ -71,7 +71,7 @@ export default function ContactPage() {
     <div className="flex flex-col min-h-screen">
       <HeroSection />
       
-      <section className="py-16 md:py-24">
+      <section className="">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <ContactInfo />
